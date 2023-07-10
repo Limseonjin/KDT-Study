@@ -1,9 +1,11 @@
 # Remote-P
 
 안녕하세요 제 이름은 임선진 입니다. 
+파이팅^^
 
 ---
 ### 연습한 목록 
++swich
 + push 
 - pull
 * feach
