@@ -1,7 +1,12 @@
+@import url(../common.css);
+
+body{
+    background: url('../Img/vis_4.jpg') c;
+}
 .main-header{
     width: 100%;
     height: 100px;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0,0.2);
     padding: 20px;
     display: flex;
 }
@@ -45,8 +50,3 @@
     margin: 10px;
 }
 
-.bgimg{
-    width: 100%;
-    height: 400px;
-    background: red;
-}
