@@ -23,20 +23,24 @@
     display: flex;
 }
 
-.main-header .main-nav .main-nav__items .item1{
+.main-header .main-nav .main-nav__items .main-nav__item{
     font-size: 1.1em;
     font-weight: 700;
-    width: 15%;
     margin: 10px;
+}
+.main-header .sub_nav{
+    width: 50%;
+    color:white;
+    margin-right: 30px;
+    padding-top: 10px;
 }
 
 .main-header .sub_nav .sub-nav__items{
     display: flex;
     justify-content: flex-end;
 }
-.main-header .main-nav .main-nav__right .item2{
+.main-header .sub_nav .sub-nav__items .sub-nav__item{
     font-size: 1.1em;
     font-weight: 700;
-    width: 10%;
     margin: 10px;
 }
