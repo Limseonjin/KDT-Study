@@ -132,3 +132,62 @@
 #plans .plan-wrapper .plan .btn-group{
   margin: 20px 0;
 }
+
+/* ---------------------- */
+#key-features{
+  background: #ff1b68;
+  margin-top: 50px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  font-family:'Montserrat', serif;
+}
+#key-features .section-title{
+  margin-top: 50px;
+  font-weight: 700;
+  font-size: 20px;
+}
+#key-features .key-feature__list{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+#key-features .key-feature__list .key-feature{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  gap: 10px;
+  margin-bottom: 50px;
+}
+#key-features .key-feature__list .key-feature__image{
+  width: 100px;
+  height: 100px;
+  background: #ffccf7;
+  border-radius: 100px;
+  border: 1px solid #000;
+}
+#key-features .key-feature__list .key-feature__description{
+  margin-top: 5px;
+  font-weight: 700;
+  font-size: 15px;
+  text-align: center;
+}
+
+.main-footer{
+  background: #000;
+  color:#fff;
+  height: 80px;
+}
+.main-footer .main-footer__links{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-footer .main-footer__links .main-footer__link{
+  margin: 30px 10px ;
+}
