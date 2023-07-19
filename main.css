@@ -5,8 +5,31 @@
     background: url('../Img/all_img.jpg')
        no-repeat center / cover;
     height: calc(100vh - 97px);
-  }
+    /* fixed때문에 추가 */
+    margin-top: 97px;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #product-overview h2{
+    font-size: 58px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.5);
+
+    animation: drop 2s linear;
+  }
+  @keyframes drop{
+    0%{
+      opacity: 0;
+      transform: translate(0,-500px);
+    }
+    100%{
+      opacity: 1;
+      transform: translate(0,0px);
+    }
+  }
   #plans{
     /* background: darkgoldenrod; */
     margin: 100px auto;
