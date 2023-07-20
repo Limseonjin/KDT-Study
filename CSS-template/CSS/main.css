@@ -272,3 +272,24 @@ section.contents .main-text::before {
     opacity: 1;
 
   }
+
+  /* contact */
+
+  section.contents .contact{
+    width: 90%;
+    padding: 220px 0;
+    background: url('../img/contact.jpg') 
+    no-repeat center/cover fixed;
+  }
+  section.contents .contact .inner {
+    width: 70%;
+    margin: 0 auto;
+    font-size: 17px;
+    line-height: 1.4;
+}
+section.contents .contact .inner .tel {
+    font-size: 55px;
+    font-weight: 700;
+    margin: 50px 0;
+}
+
