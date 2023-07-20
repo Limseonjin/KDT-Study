@@ -14,7 +14,7 @@ header{
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 10000;
+    z-index: 999;
 }
 
 header .inner-header{
@@ -53,5 +53,32 @@ header .inner-header .menu-open .lnr-menu{
 }
 
 header .gnb{
-    display: none;
+    background: #000;
+    color: #666;
+    font-weight: 700;
+    font-size: 40px;
+    padding: 70px 100px;
+
+    position: fixed;
+    right: -100%;top: 0;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: row-reverse;
+
+    transition: 0.8s;
+}
+header .gnb.open{
+    right: 0;
+}
+header .gnb .close{
+    color: #fff;
+    margin-left: 150px;
+}
+header .gnb ul{
+    line-height: 1.7;
+}
+header .gnb ul li:hover,
+header .gnb ul li.active{
+    color: #fff;
 }
