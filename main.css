@@ -1,25 +1,27 @@
 @import url('include.css');
 @import url('common.css');
+/* @import url('main-tablet.css'); */
 
-  #product-overview {
-    background: url('../Img/all_img.jpg')
-       no-repeat center / cover;
-    height: calc(100vh - 97px);
-    /* fixed때문에 추가 */
-    margin-top: 97px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  #product-overview h2{
-    font-size: 58px;
-    font-weight: 700;
-    color: white;
-    text-shadow: 2px 2px 15px rgba(0,0,0,0.5);
+#product-overview {
+  background: url('../Img/all_img.jpg')
+      no-repeat center / cover;
+  height: calc(100vh - 97px);
+  /* fixed때문에 추가 */
+  margin-top: 97px;
 
-    animation: drop 2s linear;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#product-overview h2{
+  font-size: 58px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 2px 2px 15px rgba(0,0,0,0.5);
+
+  animation: drop 2s linear;
+}
   @keyframes drop{
     0%{
       opacity: 0;
@@ -139,4 +141,26 @@
   font-weight: 700;
   font-size: 15px;
   text-align: center;
+}
+
+
+/* 1024해상도 태블릿 */
+@media screen and (max-width: 1024px){
+  #product-overview{
+      height: calc(50vh - 97px);
+  }
+  #plans .plan-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+  #plans .plan-wrapper .plan{
+    width: 60%;
+  }
+  #plans .plan-wrapper .plan--highlighted{
+    order: -1;
+  }
+  #plans .plan-wrapper .plan .plan__features{
+    display: none
+  }
 }
