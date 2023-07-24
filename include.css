@@ -1,3 +1,7 @@
+/* 모바일 전용 버튼 */
+.main-header .mobile-menu-btn{
+    display: none;
+}
 
 
 /* header style */
@@ -13,6 +17,7 @@ position: fixed;
 width: 100%;
 top:0;
 }
+
 
 .main-header h1 {
 /* background: yellowgreen; */

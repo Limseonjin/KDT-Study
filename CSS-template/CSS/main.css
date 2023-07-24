@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 @import url(../../common.css);
 
+/* 큰 와이드 화면 3840*2160 */
+
+
+
 body{
     font-size: 15px;
     font-family: 'Noto Sans KR', sans-serif;
