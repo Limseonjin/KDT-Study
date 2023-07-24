@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 3000px;
+        }
+        header {
+            border-bottom: 3px solid gray;
+            display: flex;
+            justify-content: space-between;
+
+            /* postion absolute, fixed걸면 
+                기본 가로너비 100% 깨진다.
+             */
+            position: fixed;
+            width: 100%;
+            top: 0;
+        }
+        header h1{
+            max-width: 20px 20px 30px;
+            font-size: 40px;
+            padding: 0;
+        }
+        header ul{
+            margin-top: 30px;
+            padding: 0;
+            list-style: none;
+            display: flex;
+        }
+        header ul li{
+            margin-right:30px;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+        /* fixed는 언제나 화면 전체가 기준 */
+        .go-top{
+            font-size: 30px;
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Home</h1>
+        <nav>
+            <ul>
+                <li>소개</li>
+                <li>커뮤니티</li>
+                <li>자료실</li>
+                <li>회원가입</li>
+            </ul>
+        </nav>
+    </header>
+    <div class="go-top">
+        <a href="#">맨 위로 이동</a>
+    </div>
+</body>
+</html>

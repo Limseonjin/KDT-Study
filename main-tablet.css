@@ -1,0 +1,6 @@
+/* 1024해상도 태블릿 */
+@media screen and (max-width: 1024px){
+    #product-overview{
+        height: calc(50vh-97px);
+    }
+}

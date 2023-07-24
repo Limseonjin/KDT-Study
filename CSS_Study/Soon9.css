@@ -1,0 +1,58 @@
+@import url(../common.css);
+
+.main-header{
+    width: 100%;
+    height: 100px;
+    background: rgba(0, 0, 0,0.2);
+    padding: 20px;
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+}
+.main-header h1{
+    flex:1;
+}
+.main-header .logo{
+    width: 100%;
+    height: 60px;
+    background: url('../../Img/logo1.png') no-repeat center/cover;
+}
+.main-header .main-nav{
+    flex:2;
+    color:white;
+    margin-left: 30px;
+    padding-top: 10px;
+}
+.main-header .main-nav .main-nav__items{
+    display: flex;
+    justify-content:space-around;
+}
+
+.main-header .main-nav .main-nav__items .main-nav__item{
+    font-size: 1.1em;
+    font-weight: 700;
+    margin: 10px;
+}
+.main-header .sub_nav{
+    flex:2;
+    color:white;
+    margin-right: 30px;
+    padding-top: 10px;
+}
+
+.main-header .sub_nav .sub-nav__items{
+    display: flex;
+    justify-content: flex-end;
+}
+.main-header .sub_nav .sub-nav__items .sub-nav__item{
+    font-size: 1.1em;
+    font-weight: 700;
+    margin: 10px;
+}
+
+
+.first-main{
+    height: 100vh;
+    background: url('../Img/vis_4.jpg')
+    no-repeat center/cover;
+}

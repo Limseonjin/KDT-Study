@@ -1,0 +1,52 @@
+#wrapper{
+    height: 1000px;
+    background: #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#wrapper header{
+    width: 80%;
+    background: orange;
+    color: white;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#wrapper header h1{
+    font-size: 75px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+}
+#wrapper header span{
+    font-size: 15px;
+    margin-top: 5px;
+}
+#wrapper header .stit{
+    width: 100%;
+    font-size: 12px;
+    background: lightgrey;
+    color: black;
+    padding: 5px;
+    text-align: center;
+}
+#wrapper header h1{
+    width: 80%;
+    background: orange;
+}
+#wrapper .container{
+    width: 80%;
+    background: white;
+    display: flex;
+}
+#wrapper .container .side-menu{
+    flex:1;
+    background: white;
+}
+#wrapper .container .main-content{
+    background: red;
+}
