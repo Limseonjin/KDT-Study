@@ -23,3 +23,5 @@ z -= 9;
 
 let m = 8;
 
+const str = 'hello' * 5.5;
+console.log(str);
