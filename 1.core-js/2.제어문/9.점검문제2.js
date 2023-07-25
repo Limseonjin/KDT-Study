@@ -14,26 +14,28 @@
 
 
 let game = true;
-while (game){
+game : while (game){
     let rn = Math.floor(Math.random() * 100) + 1;
     let cnt;
     let start = 1;
     let end = 100;
     let level;
-    while (true){
-        if (cnt <= 0){
-            alert(`GAME OVER! 당신이 졌습니다.`);
-            break;
-        }
+    while (true){  
         if (!level){
             level = +prompt(`난이도를 설정하세요!
-             1. 상(기회4번) 2.중 (기회 6번) 3. 하 (기회 10번)`);
-    
-            if (level === 1) cnt=4;
+            0.게임종료 1. 상(기회4번) 2.중 (기회 6번) 3. 하 (기회 10번)`);
+
+            if (level === 0) break game;
+            else if (level === 1) cnt=4;
             else if (level === 2) cnt=6;
             else if (level === 3) cnt=10;
             else {alert(`똑바로 입력하세요`); continue};
         }
+        if (cnt <= 0){
+            alert(`GAME OVER! 당신이 졌습니다.`);
+            break;
+        }
+      
         
         let userNum = +prompt(`${start} ~ ${end} 사이의 숫자를 입력하세요`);
         cnt--;
