@@ -12,11 +12,17 @@
 // 난이도별 입력 횟수제한이 다르다.
 
 
+//난이도 상수 
+const OVER = 0;
+const HIGH = 1; 
+const MIDDLE = 2;
+const LOW = 3;
+
 
 let game = true;
 game : while (game){
     let rn = Math.floor(Math.random() * 100) + 1;
-    let cnt;
+    let cnt,initcnt;
     let start = 1;
     let end = 100;
     let level;
@@ -25,14 +31,15 @@ game : while (game){
             level = +prompt(`난이도를 설정하세요!
             0.게임종료 1. 상(기회4번) 2.중 (기회 6번) 3. 하 (기회 10번)`);
 
-            if (level === 0) break game;
-            else if (level === 1) cnt=4;
-            else if (level === 2) cnt=6;
-            else if (level === 3) cnt=10;
+            if (level === OVER) break game;
+            else if (level === HIGH) cnt=4;
+            else if (level === MIDDLE) cnt=6;
+            else if (level === LOW) cnt=10;
             else {alert(`똑바로 입력하세요`); continue};
+            initcnt = cnt;
         }
         if (cnt <= 0){
-            alert(`GAME OVER! 당신이 졌습니다.`);
+            alert(`GAME OVER! 당신이 졌습니다. 정답은 ${rn}입니다`);
             break;
         }
       
@@ -45,19 +52,17 @@ game : while (game){
             continue;
         }
         
-        
+        cnt--;
         if ( rn > userNum){
-            cnt--;
              alert(`UP!! 기회가 ${cnt}번 남았습니다`); 
              start = userNum+1;
         }
         else if ( rn < userNum) {
-            cnt--;
              alert(`Down!!  기회가 ${cnt}번 남았습니다`); 
              end = userNum-1;
             }
         else {
-            alert('정답입니다!!');
+            alert(`정답입니다!! ${initcnt-cnt}번 만에 맞췄습니다!`);
             break;
         }
     }
