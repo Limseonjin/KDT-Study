@@ -38,13 +38,21 @@ game : while (game){
       
         
         let userNum = +prompt(`${start} ~ ${end} 사이의 숫자를 입력하세요`);
-        cnt--;
-    
+        //입력값 유효성 검사 
+
+        if (userNum < start || userNum > end){
+            alert(`범위 안의 값을 넣어야지`);
+            continue;
+        }
+        
+        
         if ( rn > userNum){
+            cnt--;
              alert(`UP!! 기회가 ${cnt}번 남았습니다`); 
              start = userNum+1;
         }
         else if ( rn < userNum) {
+            cnt--;
              alert(`Down!!  기회가 ${cnt}번 남았습니다`); 
              end = userNum-1;
             }
