@@ -22,6 +22,7 @@ while (true){
         let NewMem = prompt(`멤버 : [ ${arr} ]
 새로운 멤버 이름을 입력하세요`);
         arr.splice(arr.indexOf(userMem),1,NewMem);
+        //arr[arr.indexOf(userMem)] = NewMem;
         alert(`수정된 멤버 목록 : [ ${arr} ]`)
         break;
     }
