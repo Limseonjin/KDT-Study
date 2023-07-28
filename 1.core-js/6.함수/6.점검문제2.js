@@ -10,8 +10,8 @@ function calcNumbersTotalAndAverage(...numbers){
   avg = total / numbers.length;
   
   return {
-    total : total,
-    avg : avg
+    total,
+    avg
   }
 }
 
