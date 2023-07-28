@@ -21,9 +21,13 @@ function calcBMI(h,w){
   return bmi
 
 }
+function round (bmi , n){
+  n = 10**n
+  return Math.round(bmi *n)/n
+}
 
 let h = 178.4,
   w = 78.2;
 let myBmi = calcBMI(h, w);
 
-console.log(`키 -> ${h}cm, 체중 -> ${w}kg의 체질량지수는 ${Math.round(myBmi *100)/100}입니다.`);
+console.log(`키 -> ${h}cm, 체중 -> ${w}kg의 체질량지수는 ${round(myBmi,2)}입니다.`);
