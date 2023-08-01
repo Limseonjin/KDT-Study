@@ -14,7 +14,7 @@
   <script>
     const [$u1, $u2] = [...document.querySelectorAll('li')]
 
-    const pororoNumber = $u1.dataset.userNumber;
+    const pororoNumber = +$u1.dataset.userNumber;
     console.log(pororoNumber + 10);
 
     const pinguRole = $u2.dataset.role;
