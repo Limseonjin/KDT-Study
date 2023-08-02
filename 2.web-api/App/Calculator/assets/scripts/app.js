@@ -17,8 +17,17 @@ const writeToLog = (operation, prevResult, number, result) => {
     result 
   };
   logEntries.push(logObject);
-  console.log(logEntries);
+  //Calculator-Log에 출력하기 
+  createLog(logEntries);
 };
+
+//태그 생성 후 로그 정보를 저장
+const createLog = (logEntries)=>{
+  const logLi = $loglist.appendChild(document.createElement('li'))
+  logEntries.forEach((log)=> {
+  logLi.textContent=(`${log.operation},${log.prevResult},${log.number},${log.result}`)
+  });
+}
 
 // 사용자의 입력값을 읽어오는 함수
 const getUserNumerInput = () => parseInt($userInput.value);
@@ -31,8 +40,6 @@ const createLogAndRenderOutput = (operateMark, originResult, calcNumber) => {
   outputResult(currentResult, calcDescriptionLog);
 };
 
-
-//계산 기능 헬퍼 함수 
 // 계산 기능 헬퍼 함수
 const calculate = (type) => {
   // 계산 전 값을 백업
@@ -59,8 +66,10 @@ const calculate = (type) => {
   console.log(`${mark} button click!`);
   createLogAndRenderOutput(mark, originResult, enteredNumber);
   // 로그이력 쌓기
-  writeToLog(type, originResult, enteredNumber, currentResult);
+  writeToLog(type,originResult,enteredNumber,currentResult);
 };
+
+
 // 더하기 버튼 이벤트 핸들러
 const addHandler = () => {
   calculate('ADD');

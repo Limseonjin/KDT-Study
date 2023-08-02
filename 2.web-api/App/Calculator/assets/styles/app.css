@@ -22,7 +22,8 @@ header {
 }
 
 #results,
-#calculator {
+#calculator,
+#log {
   margin: 2rem auto;
   width: 40rem;
   max-width: 90%;
@@ -32,7 +33,8 @@ header {
   color: #023d6d;
 }
 
-#results {
+#results,
+#log h2{
   text-align: center;
 }
 
@@ -78,4 +80,39 @@ header {
 #calc-actions {
   margin-top: 1rem;
   text-align: center;
+}
+
+#listhead {
+  list-style: none;
+  font-size: 17px;
+  width: fit-content;
+}
+
+#log {
+  max-height: 300px;
+}
+#loglist {
+  max-height: 200px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  overflow: scroll;
+}
+#loglist li {
+  width: 300px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #fff;
+  margin: 10px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  
+  box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.1);
 }
