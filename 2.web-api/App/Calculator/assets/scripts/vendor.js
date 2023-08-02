@@ -9,7 +9,7 @@ const $divideBtn = document.getElementById('btn-divide');
 const $currentResultOutput = document.getElementById('current-result');
 const $currentCalculationOutput = document.getElementById('current-calculation');
 
-const $loglist = document.getElementById('loglist');
+const $logEntries = document.querySelector('.log-entries');
 
 function outputResult(result, text) {
   $currentResultOutput.textContent = result;

@@ -1,11 +1,50 @@
 
 // index.html에서 활용할 이벤트처리, 핸들러...
 
+//연산 타입을 상수로 관리 
+const ADD ='ADD';
+const SUB = 'SUB';
+const MULTI = 'MULTI';
+const DIVIDE = 'DIVIDE'
+
 // 계산 이력을 모아둘 배열
 const logEntries = [];
 
 // 현재 계산기에 그려질 숫자
 let currentResult = 0;
+
+let seq = 0; // 로그 번호
+
+// operation문자로 기호를 생성하는 함수
+const convertOperationToMark = (operation) => {
+  let mark;
+  switch (operation) {
+    case ADD: 
+      mark = '+'; 
+      break;
+    case SUB: 
+      mark = '-'; 
+      break;
+    case MULTI: 
+      mark = 'x'; 
+      break;
+    case DIVIDE: 
+      mark = '/'; 
+      break;
+  }
+  return mark;
+};
+
+// 로그 이력을 렌더링하는 함수
+const renderToLog = ({ operation, prevResult: firstNumber, number: secondNumber, result }) => {
+  // li태그 생성
+  const $newLi = document.createElement('li');
+  $newLi.classList.add('log-entries__item');
+  $newLi.textContent = `#${++seq}. ${firstNumber} ${convertOperationToMark(operation)} ${secondNumber} = ${result}`;
+
+  // ul에 추가
+  $logEntries.appendChild($newLi);
+};
 
 // 로그 이력을 만드는 함수
 const writeToLog = (operation, prevResult, number, result) => {
@@ -17,17 +56,10 @@ const writeToLog = (operation, prevResult, number, result) => {
     result 
   };
   logEntries.push(logObject);
-  //Calculator-Log에 출력하기 
-  createLog(logEntries);
-};
+  console.log(logEntries);
 
-//태그 생성 후 로그 정보를 저장
-const createLog = (logEntries)=>{
-  const logLi = $loglist.appendChild(document.createElement('li'))
-  logEntries.forEach((log)=> {
-  logLi.textContent=(`${log.operation},${log.prevResult},${log.number},${log.result}`)
-  });
-}
+  renderToLog(logObject);
+};
 
 // 사용자의 입력값을 읽어오는 함수
 const getUserNumerInput = () => parseInt($userInput.value);
@@ -47,47 +79,33 @@ const calculate = (type) => {
   // 입력창에 입력한 숫자를 읽기
   const enteredNumber = getUserNumerInput();
 
-  let mark;
-  if (type === 'ADD') {
-    mark = '+';
-    // 실제 계산 결과 반영
-    currentResult += enteredNumber;
-  } else if (type === 'SUB') {
-    mark = '-';
-    currentResult -= enteredNumber;
-  } else if (type === 'MULTI') {
-    mark = 'x';
-    currentResult *= enteredNumber;
-  } else {
-    mark = '/';
-    currentResult /= enteredNumber;
-  }
+  let mark = convertOperationToMark(type)
 
   console.log(`${mark} button click!`);
   createLogAndRenderOutput(mark, originResult, enteredNumber);
   // 로그이력 쌓기
-  writeToLog(type,originResult,enteredNumber,currentResult);
+  writeToLog(type, originResult, enteredNumber, currentResult);
 };
 
 
 // 더하기 버튼 이벤트 핸들러
 const addHandler = () => {
-  calculate('ADD');
+  calculate(ADD);
 };
 
 // substractHandler
 const substractHandler = () => {
-  calculate('SUB');
+  calculate(SUB);
 };
 
 // multiplyHandler
 const multiplyHandler = () => {
-  calculate('MULTI');
+  calculate(MULTI);
 };
 
 // divideHandler
 const divideHandler = () => {
-  calculate('DIVIDE');
+  calculate(DIVIDE);
 };
 
 // ============  이벤트 핸들러 바인딩 ============ //
