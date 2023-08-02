@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div><button id="b1">클릭1</button></div>
+  <div><button id="b2">클릭2</button></div>
+  <div><button id="b3">클릭3</button></div>
+
+  <script>
+    function sayHelloHandler(){
+      alert('hello!');
+    }
+    //프로퍼티는 객체의 속성
+    const $btn1 = document.getElementById('b1');
+    //dir = 요소 노도의 프로퍼티들을 볼 수 있음
+    console.dir($btn1);
+
+    $btn1.onclick = sayHelloHandler;
+
+    const $btn2 = document.getElementById('b2');
+    $btn2.onclick = () => { $btn2.style.width='150px'};
+
+    const $btn3 = document.getElementById('b3');
+    $btn3.onmouseover = () => {
+      $btn3.style.background = 'red';
+    };
+    $btn3.onmouseout = () => {
+      $btn3.style.background = 'yellow';
+    };
+    
+
+    //프로퍼티 단점 : 같은 이벤트에서 여러 핸들러를 바인딩 할 수 없음 
+    // onclick = sayHelloHandler , ~~~ ( XXX )
+
+    //이벤트 핸들러 제거 하기 
+    setTimeout(()=>{
+      //2초 후에 실행됨!
+      $btn3.onmouseout = null;
+    },2000)
+  </script>
+</body>
+</html>
