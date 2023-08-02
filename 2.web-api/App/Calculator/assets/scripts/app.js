@@ -31,48 +31,54 @@ const createLogAndRenderOutput = (operateMark, originResult, calcNumber) => {
   outputResult(currentResult, calcDescriptionLog);
 };
 
-// 더하기 버튼 이벤트 핸들러
-const addHandler = () => {
-  console.log('+ button click!');
-  // 입력창에 입력한 숫자를 읽기
-  const enteredNumber = getUserNumerInput();
+
+//계산 기능 헬퍼 함수 
+// 계산 기능 헬퍼 함수
+const calculate = (type) => {
   // 계산 전 값을 백업
   const originResult = currentResult;
-  // 실제 계산 결과 반영
-  currentResult += enteredNumber;
-  createLogAndRenderOutput('+', originResult, enteredNumber);
+  // 입력창에 입력한 숫자를 읽기
+  const enteredNumber = getUserNumerInput();
+
+  let mark;
+  if (type === 'ADD') {
+    mark = '+';
+    // 실제 계산 결과 반영
+    currentResult += enteredNumber;
+  } else if (type === 'SUB') {
+    mark = '-';
+    currentResult -= enteredNumber;
+  } else if (type === 'MULTI') {
+    mark = 'x';
+    currentResult *= enteredNumber;
+  } else {
+    mark = '/';
+    currentResult /= enteredNumber;
+  }
+
+  console.log(`${mark} button click!`);
+  createLogAndRenderOutput(mark, originResult, enteredNumber);
   // 로그이력 쌓기
-  writeToLog('ADD', originResult, enteredNumber, currentResult);
+  writeToLog(type, originResult, enteredNumber, currentResult);
+};
+// 더하기 버튼 이벤트 핸들러
+const addHandler = () => {
+  calculate('ADD');
 };
 
 // substractHandler
 const substractHandler = () => {
-  console.log('- button click!');
-  const enteredNumber = getUserNumerInput();
-  const originResult = currentResult;
-  currentResult -= enteredNumber;
-  createLogAndRenderOutput('-', originResult, enteredNumber);
-  writeToLog('SUB', originResult, enteredNumber, currentResult);
+  calculate('SUB');
 };
 
 // multiplyHandler
 const multiplyHandler = () => {
-  console.log('x button click!');
-  const enteredNumber = getUserNumerInput();
-  const originResult = currentResult;
-  currentResult *= enteredNumber;
-  createLogAndRenderOutput('x', originResult, enteredNumber);
-  writeToLog('MULTI', originResult, enteredNumber, currentResult);
+  calculate('MULTI');
 };
 
 // divideHandler
 const divideHandler = () => {
-  console.log('/ button click!');
-  const enteredNumber = getUserNumerInput();
-  const originResult = currentResult;
-  currentResult /= enteredNumber;
-  createLogAndRenderOutput('/', originResult, enteredNumber);
-  writeToLog('DIVIDE', originResult, enteredNumber, currentResult);
+  calculate('DIVIDE');
 };
 
 // ============  이벤트 핸들러 바인딩 ============ //
