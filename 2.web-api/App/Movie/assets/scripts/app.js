@@ -28,7 +28,6 @@ const CLASS_VISIBLE = 'visible';
 // 영화 정보 목록 배열
 const movies = [];
 //영화정보 아이디와 선택한 영화 
-let movieId;
 let deleteTarget;
 
 
@@ -70,20 +69,19 @@ const renderNewMovie = ({ id, title, image, rating }) => {
         //배열에서도 영화 정보를 지워야함니다 
         // 클릭한 태그의 근처 lli의 movie-id값 가져오깅 
         deleteTarget = e.target
-        movieId = deleteTarget.closest('.movie-element').dataset.movieId;
-        console.log(movieId);
     }
     //삭제 클릭 이벤트 
     $newMovie.addEventListener('click',deleteMovieHandler);
 };
 
 //영화정보 지우기 함수 
-const deleteMovies = (movieId,target) =>{
+const deleteMovies = (target) =>{
     
     //배열에서 해당 아이디값을 가지는 객체를 찾아내기 <- 인덱스 알아내기 
     //대상 인덱스 찾기 
     //indexOf:원시타입(숫자,문자열)만 찾을 수 있음
     //findIndex : 배열 고차함수 /인덱스를 찾아줌 
+    const movieId = target.closest('.movie-element').dataset.movieId;
     const index = movies.findIndex(m => m.id === movieId);
     console.log(`클릭대상 인덱스 : ${index}`);
 
@@ -167,7 +165,7 @@ const cancelButtonHandler = e=>{
 //삭제를 진행하는 핸들러 
 const deleteButtonHandler = e =>{
     closeDeleteModal();
-    deleteMovies(movieId,deleteTarget);
+    deleteMovies(deleteTarget);
     entryTextVisible();
   }
 
