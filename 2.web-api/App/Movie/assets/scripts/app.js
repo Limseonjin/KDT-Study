@@ -168,7 +168,6 @@ const deleteButtonHandler = e =>{
     deleteMovies(deleteTarget);
     entryTextVisible();
   }
-
 // =====클릭이벤트 =================
 
 // Add movie버튼 클릭이벤트
@@ -187,3 +186,11 @@ $confirmAddMovieButton.addEventListener('click', addMovieHandler);
 // $deleteMovieModal.addEventListener('click',deleteMovieHandler)
 $canceldeleteMovieButton.addEventListener('click',cancelButtonHandler);
 $dangerdeleteMovieButton.addEventListener('click',deleteButtonHandler);
+
+document.addEventListener('keyup', e => {
+    if (e.key === 'Enter' ) { 
+        //모달창 열렸을때 논리값 으로 해서 열렸을때만 실행되게 ㄱㄱ 
+        console.log('엔터침');
+        $dangerdeleteMovieButton.click();
+    }
+})
