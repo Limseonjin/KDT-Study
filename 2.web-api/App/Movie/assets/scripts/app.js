@@ -39,10 +39,11 @@ const closeAddModal = () => {
   clearMovieModalInput();
 };
 
-// 화면에 새로운 영화 정보를 렌더링하는 함수
-const renderNewMovie = ({ title, image, rating }) => {
+// 화면에 새로운 영화 정보를 렌더링하는 함수 + 삭제도 같이 
+const renderNewMovie = ({ id, title, image, rating }) => {
   const $newMovie = document.createElement('li');
   $newMovie.classList.add('movie-element');
+  $newMovie.dataset.movieId = id;
 
   $newMovie.innerHTML = `
     <div class="movie-element__image">
@@ -54,9 +55,50 @@ const renderNewMovie = ({ title, image, rating }) => {
     </div>
   `;
 
+  //삭제를 진행하는 핸들러 
+  const deleteMovieHandler = e =>{
+
+    //배열에서도 영화 정보를 지워야함니다 
+    // 클릭한 태그의 근처 lli의 movie-id값 가져오깅 
+    const movieId = e.target.closest('.movie-element').dataset.movieId;
+    console.log(movieId);
+
+    //배열에서 해당 아이디값을 가지는 객체를 찾아내기 <- 인덱스 알아내기 
+    // let index = -1;
+    // for (let i=0; i<movies.length; i++){
+    //     if (movies[i].id === movieId){
+    //         index = i;
+    //         break;
+    //     }
+    // }
+
+    //대상 인덱스 찾기 
+    //indexOf:원시타입(숫자,문자열)만 찾을 수 있음
+    //findIndex : 배열 고차함수 /인덱스를 찾아줌 
+    const index = movies.findIndex(m => m.id === movieId);
+    console.log(`클릭대상 인덱스 : ${index}`);
+
+    // 그 객체 지우기 <- 인덱스를 알아야 지움 
+    movies.splice(index,1);
+    //li 지우기 
+    e.target.closest('.movie-element').remove();
+
+  }
+
+  //삭제 클릭 이벤트 
+  $newMovie.addEventListener('click',deleteMovieHandler);
+
   $movieList.appendChild($newMovie);
 };
-
+//영화 정보 입력란 검증
+const validateMovieInput = ({title, image, rating}) =>{
+    if(
+        title.trim() === '' || image.trim() ==='' || rating.trim()===''
+        ||rating < 1|| rating > 5){
+            return false
+    }
+    return true;
+}
 
 // =====  이벤트 핸들러 및 이벤트 바인딩 ===== //
 
@@ -68,11 +110,18 @@ const addMovieHandler = e => {
 
   // 객체로 묶기
   const newMovie = {
+    id:Math.random().toString(),
     title: titleValue,
     image: imgUrlValue,
     rating: ratingValue
   };
   // console.log(newMovie);
+  //검증 
+  if (!validateMovieInput(newMovie)){
+    alert('입력값이 유호하지 않습니다');
+    return;
+  }
+
   movies.push(newMovie);
   console.log(movies);
 
@@ -89,7 +138,6 @@ const showMovieModalHandler = e => {
 };
 
 
-
 // 백드롭 영역을 클릭하면 모달이 닫히는 핸들러
 const backdropHandler = e => {
   closeAddModal();
@@ -98,6 +146,8 @@ const backdropHandler = e => {
 const closeMovieModalHandler = e => {
   closeAddModal();
 };
+
+// =====클릭이벤트 =================
 
 // Add movie버튼 클릭이벤트
 $addMovieButton.addEventListener('click', showMovieModalHandler);
