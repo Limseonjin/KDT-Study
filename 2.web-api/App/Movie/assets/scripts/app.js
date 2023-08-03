@@ -10,6 +10,10 @@ const $backdrop = document.getElementById("backdrop");
 const $cancelAddMovieButton = $addMovieModal.querySelector(".btn--passive");
 const $confirmAddMovieButton = $cancelAddMovieButton.nextElementSibling;
 
+//영화 목록 삭제 모달 안에 있는 확인,취소 버튼
+const $canceldeleteMovieButton = $deleteMovieModal.querySelector(".btn--passive");
+const $dangerdeleteMovieButton = $deleteMovieModal.querySelector(".btn--danger");
+
 // 영화 추가 모달 안에 있는 입력엘리먼트들
 const $userInputs = [
   ...$addMovieModal.querySelectorAll("input")
@@ -19,11 +23,14 @@ const $entryTextSection = document.getElementById('entry-text');
 
 // 영화목록 ul태그
 const $movieList = document.getElementById('movie-list');
-
 const CLASS_VISIBLE = 'visible';
 
 // 영화 정보 목록 배열
 const movies = [];
+//영화정보 아이디와 선택한 영화 
+let movieId;
+let deleteTarget;
+
 
 // ===== 유틸함수, 일반함수 정의 ===== //
 
@@ -39,7 +46,10 @@ const closeAddModal = () => {
   clearMovieModalInput();
 };
 
-// 화면에 새로운 영화 정보를 렌더링하는 함수 + 삭제도 같이 
+//영화 삭제 모달을 닫는 함수 
+const closeDeleteModal = () => $deleteMovieModal.classList.remove(CLASS_VISIBLE);
+
+// 화면에 새로운 영화 정보를 렌더링하는 함수 + 삭
 const renderNewMovie = ({ id, title, image, rating }) => {
   const $newMovie = document.createElement('li');
   $newMovie.classList.add('movie-element');
@@ -54,24 +64,23 @@ const renderNewMovie = ({ id, title, image, rating }) => {
       <p>${rating} / 5</p>
     </div>
   `;
+    $movieList.appendChild($newMovie);
+    const deleteMovieHandler = e =>{
+        $deleteMovieModal.classList.add(CLASS_VISIBLE);
+        //배열에서도 영화 정보를 지워야함니다 
+        // 클릭한 태그의 근처 lli의 movie-id값 가져오깅 
+        deleteTarget = e.target
+        movieId = deleteTarget.closest('.movie-element').dataset.movieId;
+        console.log(movieId);
+    }
+    //삭제 클릭 이벤트 
+    $newMovie.addEventListener('click',deleteMovieHandler);
+};
 
-  //삭제를 진행하는 핸들러 
-  const deleteMovieHandler = e =>{
-
-    //배열에서도 영화 정보를 지워야함니다 
-    // 클릭한 태그의 근처 lli의 movie-id값 가져오깅 
-    const movieId = e.target.closest('.movie-element').dataset.movieId;
-    console.log(movieId);
-
+//영화정보 지우기 함수 
+const deleteMovies = (movieId,target) =>{
+    
     //배열에서 해당 아이디값을 가지는 객체를 찾아내기 <- 인덱스 알아내기 
-    // let index = -1;
-    // for (let i=0; i<movies.length; i++){
-    //     if (movies[i].id === movieId){
-    //         index = i;
-    //         break;
-    //     }
-    // }
-
     //대상 인덱스 찾기 
     //indexOf:원시타입(숫자,문자열)만 찾을 수 있음
     //findIndex : 배열 고차함수 /인덱스를 찾아줌 
@@ -81,15 +90,18 @@ const renderNewMovie = ({ id, title, image, rating }) => {
     // 그 객체 지우기 <- 인덱스를 알아야 지움 
     movies.splice(index,1);
     //li 지우기 
-    e.target.closest('.movie-element').remove();
+    target.closest('.movie-element').remove();
+}
 
+//나의 개인 저장공간 조건부 처리 
+const entryTextVisible = () =>{
+    console.log(`랭스:${movies.length}`);
+  if (movies.length === 0){
+      $entryTextSection.style.display = '';
+} else{
+      $entryTextSection.style.display = 'none';
   }
-
-  //삭제 클릭 이벤트 
-  $newMovie.addEventListener('click',deleteMovieHandler);
-
-  $movieList.appendChild($newMovie);
-};
+}
 //영화 정보 입력란 검증
 const validateMovieInput = ({title, image, rating}) =>{
     if(
@@ -124,11 +136,13 @@ const addMovieHandler = e => {
 
   movies.push(newMovie);
   console.log(movies);
-
+//개인 저장공간 처리 
+  entryTextVisible();
   // 모달 닫기
   closeAddModal();
   // 화면에 입력한 영화정보 렌더링하기
   renderNewMovie(newMovie);
+  
 };
 
 // 영화 추가 모달창을 띄우는 핸들러
@@ -146,6 +160,16 @@ const backdropHandler = e => {
 const closeMovieModalHandler = e => {
   closeAddModal();
 };
+//영화 삭제 모달창에 취소 버튼을 누르면 모달이 닫히는 핸들러
+const cancelButtonHandler = e=>{
+   closeDeleteModal();
+  }
+//삭제를 진행하는 핸들러 
+const deleteButtonHandler = e =>{
+    closeDeleteModal();
+    deleteMovies(movieId,deleteTarget);
+    entryTextVisible();
+  }
 
 // =====클릭이벤트 =================
 
@@ -160,3 +184,8 @@ $cancelAddMovieButton.addEventListener('click', closeMovieModalHandler);
 
 // Add Movie모달 추가버튼 클릭이벤트
 $confirmAddMovieButton.addEventListener('click', addMovieHandler);
+
+// //delete 모달 클릭이벤트
+// $deleteMovieModal.addEventListener('click',deleteMovieHandler)
+$canceldeleteMovieButton.addEventListener('click',cancelButtonHandler);
+$dangerdeleteMovieButton.addEventListener('click',deleteButtonHandler);
