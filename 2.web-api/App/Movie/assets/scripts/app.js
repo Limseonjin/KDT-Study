@@ -29,7 +29,8 @@ const CLASS_VISIBLE = 'visible';
 const movies = [];
 //영화정보 아이디와 선택한 영화 
 let deleteTarget;
-
+//모달창 열렸는지 논리값 (엔터키 클릭)
+let OpenBool = false;
 
 // ===== 유틸함수, 일반함수 정의 ===== //
 
@@ -46,7 +47,10 @@ const closeAddModal = () => {
 };
 
 //영화 삭제 모달을 닫는 함수 
-const closeDeleteModal = () => $deleteMovieModal.classList.remove(CLASS_VISIBLE);
+const closeDeleteModal = () => {
+  $deleteMovieModal.classList.remove(CLASS_VISIBLE);
+  OpenBool = false
+}
 
 // 화면에 새로운 영화 정보를 렌더링하는 함수 + 삭
 const renderNewMovie = ({ id, title, image, rating }) => {
@@ -64,13 +68,15 @@ const renderNewMovie = ({ id, title, image, rating }) => {
     </div>
   `;
     $movieList.appendChild($newMovie);
+
     const deleteMovieHandler = e =>{
         $deleteMovieModal.classList.add(CLASS_VISIBLE);
         //배열에서도 영화 정보를 지워야함니다 
         // 클릭한 태그의 근처 lli의 movie-id값 가져오깅 
         deleteTarget = e.target
+        OpenBool = true;
     }
-    //삭제 클릭 이벤트 
+    //삭제 클릭 이벤트 (모달창 열기)
     $newMovie.addEventListener('click',deleteMovieHandler);
 };
 
@@ -188,7 +194,7 @@ $canceldeleteMovieButton.addEventListener('click',cancelButtonHandler);
 $dangerdeleteMovieButton.addEventListener('click',deleteButtonHandler);
 
 document.addEventListener('keyup', e => {
-    if (e.key === 'Enter' ) { 
+    if (e.key === 'Enter' && OpenBool === true) { 
         //모달창 열렸을때 논리값 으로 해서 열렸을때만 실행되게 ㄱㄱ 
         console.log('엔터침');
         $dangerdeleteMovieButton.click();
