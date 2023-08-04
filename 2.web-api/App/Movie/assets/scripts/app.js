@@ -29,7 +29,8 @@ const CLASS_VISIBLE = 'visible';
 const movies = [];
 //영화정보 아이디와 선택한 영화 
 let deleteTarget;
-
+//모달창 열렸는지 논리값 (엔터키 클릭)
+let OpenBool = false;
 
 // ===== 유틸함수, 일반함수 정의 ===== //
 
@@ -39,14 +40,17 @@ const clearMovieModalInput = () => {
 };
 
 // 영화추가모달을 닫는 함수
-const closeAddModal = () => {
+const closeModal = (flag='ADD', isBackdrop = false) => {
   $backdrop.classList.remove(CLASS_VISIBLE);
-  $addMovieModal.classList.remove(CLASS_VISIBLE);
-  clearMovieModalInput();
+  if (isBackdrop || flag === 'ADD'){
+    $addMovieModal.classList.remove(CLASS_VISIBLE);
+    clearMovieModalInput();
+  }
+  if ( isBackdrop || flag === 'DELETE'){
+    $deleteMovieModal.classList.remove(CLASS_VISIBLE);
+    OpenBool = false;
+  }
 };
-
-//영화 삭제 모달을 닫는 함수 
-const closeDeleteModal = () => $deleteMovieModal.classList.remove(CLASS_VISIBLE);
 
 // 화면에 새로운 영화 정보를 렌더링하는 함수 + 삭
 const renderNewMovie = ({ id, title, image, rating }) => {
@@ -64,13 +68,16 @@ const renderNewMovie = ({ id, title, image, rating }) => {
     </div>
   `;
     $movieList.appendChild($newMovie);
+
     const deleteMovieHandler = e =>{
         $deleteMovieModal.classList.add(CLASS_VISIBLE);
+        $backdrop.classList.add(CLASS_VISIBLE);
         //배열에서도 영화 정보를 지워야함니다 
         // 클릭한 태그의 근처 lli의 movie-id값 가져오깅 
         deleteTarget = e.target
+        OpenBool = true;
     }
-    //삭제 클릭 이벤트 
+    //삭제 클릭 이벤트 (모달창 열기)
     $newMovie.addEventListener('click',deleteMovieHandler);
 };
 
@@ -137,7 +144,7 @@ const addMovieHandler = e => {
 //개인 저장공간 처리 
   entryTextVisible();
   // 모달 닫기
-  closeAddModal();
+  closeModal();
   // 화면에 입력한 영화정보 렌더링하기
   renderNewMovie(newMovie);
   
@@ -152,19 +159,19 @@ const showMovieModalHandler = e => {
 
 // 백드롭 영역을 클릭하면 모달이 닫히는 핸들러
 const backdropHandler = e => {
-  closeAddModal();
+  closeModal('',true);
 };
 // 영화 추가 모달창의 취소버튼을 누르면 모달이 닫히는 핸들러
 const closeMovieModalHandler = e => {
-  closeAddModal();
+  closeModal();
 };
 //영화 삭제 모달창에 취소 버튼을 누르면 모달이 닫히는 핸들러
 const cancelButtonHandler = e=>{
-   closeDeleteModal();
+   closeModal('DELETE');
   }
-//삭제를 진행하는 핸들러 
-const deleteButtonHandler = e =>{
-    closeDeleteModal();
+  //삭제를 진행하는 핸들러 
+  const deleteButtonHandler = e =>{
+    closeModal('DELETE');
     deleteMovies(deleteTarget);
     entryTextVisible();
   }
@@ -188,7 +195,7 @@ $canceldeleteMovieButton.addEventListener('click',cancelButtonHandler);
 $dangerdeleteMovieButton.addEventListener('click',deleteButtonHandler);
 
 document.addEventListener('keyup', e => {
-    if (e.key === 'Enter' ) { 
+    if (e.key === 'Enter' && OpenBool === true) { 
         //모달창 열렸을때 논리값 으로 해서 열렸을때만 실행되게 ㄱㄱ 
         console.log('엔터침');
         $dangerdeleteMovieButton.click();
