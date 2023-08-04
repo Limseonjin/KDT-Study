@@ -44,6 +44,30 @@ class Dog {
   );
   console.log(p2);
   
+  //한개의 li 태그를 생성하는 컴포넌트 클래스 설계
+
+  class ProductItem{
+    constructor(product){
+        this.product = product
+    }
+    render(){
+        const $prod = document.createElement("li");
+        $prod.classList.add("product-item");
+        $prod.innerHTML = `
+          <div>
+            <img src="${this.product.imageUrl}" alt="${this.product.title}">
+            <div class="product-item__content">
+              <h2>${this.product.title}</h2>
+              <h3>${this.product.price}원</h3>
+              <p>${this.product.description}</p>
+              <button>담기</button>
+            </div>
+          </div>
+        `;
+        return $prod;
+    }
+  }
+
   // 상품 목록에 대한 객체
   const productList = {
     products: [
@@ -75,20 +99,10 @@ class Dog {
       const $prodList = document.createElement("ul");
       $prodList.classList.add("product-list");
       this.products.forEach((prod) => {
-        const $prod = document.createElement("li");
-        $prod.classList.add("product-item");
-        $prod.innerHTML = `
-          <div>
-            <img src="${prod.imageUrl}" alt="${prod.title}">
-            <div class="product-item__content">
-              <h2>${prod.title}</h2>
-              <h3>${prod.price}원</h3>
-              <p>${prod.description}</p>
-              <button>담기</button>
-            </div>
-          </div>
-        `;
-        $prodList.appendChild($prod);
+        // { product: {title:'',imgurl:'',...}}
+        const productItem = new ProductItem(prod);
+        console.log(productItem);
+        $prodList.appendChild(productItem.render());
       });
       $app.appendChild($prodList);
     },
