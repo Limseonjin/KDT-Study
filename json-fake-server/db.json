@@ -1,0 +1,33 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "냠냠냠 쩝쩝쩝",
+      "body": "zzzdkflasdjhfksahfkdjsafkhasklfdhsa"
+    },
+    {
+      "id": 2,
+      "title": "뽀로로루리리르리",
+      "body": "ㅇㄴㄹ엉니얼니ㅓㄹ잉너ㅣㄹ너일너ㅣ"
+    }
+  ],
+  
+  "users": [
+    {
+      "id": 1,
+      "account": "abc1234",
+      "userName": "김철수"
+    },
+    {
+      "id": 2,
+      "account": "def456",
+      "userName": "박영희"
+    },
+    {
+      "id": 3,
+      "account": "ggg999",
+      "userName": "구구콘"
+    }
+  ]
+    
+}
