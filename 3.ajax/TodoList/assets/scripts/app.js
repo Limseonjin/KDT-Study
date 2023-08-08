@@ -70,51 +70,37 @@ const listHandler = e =>{
     
     //체크 박스 기능
     const checkTodo = () =>{
-
-        fetch(`${URL}/${id}`),{
+        let isCheck = {done:false};
+    
+        if (e.target.checked){
+            isCheck = {done : true};
+        }
+        
+        fetch(`${URL}/${id}`,{
             method : 'PATCH',
             headers : {
                 'content-type' : 'application/json',
-              },
-              body : JSON.stringify({done : true})
-        }
-        
+            },
+            body : JSON.stringify(isCheck)
+        })
+        .then(res => {
+            if (!res.ok){
+                console.log("에러에러");
+            }
+            return res.json();
+        })
+            
     }
     //타겟에 따라 발생할 함수
     if (e.target.closest(".remove")) deleteTodo();
-    //else if (e.target.closest(".checkbox input")) {
-    //    checkTodo() ;
-    
+    else if (e.target.closest(".checkbox input")) {
+        checkTodo() ;
+    }
 }
 
 // 삭제 이벤트 등록
-//$todoUl.addEventListener("click", listHandler);
+$todoUl.addEventListener("click", listHandler);
 
-$todoUl.addEventListener("change", (e)=>{
-    const id = e.target.dataset.checkId;
-
-    let isCheck = {done:false};
-
-    if (e.target.checked){
-        isCheck = {done : true};
-    }
-    
-
-    fetch(`${URL}/${id}`,{
-        method : 'PATCH',
-        headers : {
-            'content-type' : 'application/json',
-        },
-        body : JSON.stringify(isCheck)
-    })
-    .then(res => {
-        if (!res.ok){
-            console.log("에러에러");
-        }
-        return res.json();
-    })
-        
-});
 
 
 /*
