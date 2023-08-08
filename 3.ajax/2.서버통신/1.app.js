@@ -61,7 +61,7 @@ const fetchNewPost = () => {
   // console.log('form이 제출됨!');
 
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://localhost:8383/posts");
+  xhr.open("POST", "http://localhost:5000/posts");
 
   const payload = JSON.stringify({
     title: document.getElementById("title").value,
