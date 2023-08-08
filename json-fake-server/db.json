@@ -32,21 +32,26 @@
     }
   ],
   "followers": [],
-  "todos" : [
+  "todos": [
     {
-    "id" : 1,
-    "text" : "할 일 1",
-    "done" : false
+      "id": 2,
+      "text": "할 일 2",
+      "done": true
     },
     {
-    "id" : 2,
-    "text" : "할 일 2",
-    "done" : false
+      "id": 3,
+      "text": "저녁냠냠스",
+      "done": true
     },
     {
-    "id" : 3,
-    "text" : "저녁냠냠스",
-    "done" : false
+      "text": "ㅎㅇㅎㅇ",
+      "done": true,
+      "id": 7
+    },
+    {
+      "text": "효원 바보",
+      "done": true,
+      "id": 8
     }
-]
+  ]
 }
