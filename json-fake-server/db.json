@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "id": 1,
+      "title": "하이라이승",
+      "body": "옹뇽뇽온묜묜ㅁ 오묨뇸뇨묨ㄴ"
+    },
+    {
       "id": 2,
       "title": "수정수정 게시물",
       "body": "zzzzzzdsfwefzzz3333ㅈ"
@@ -9,23 +14,18 @@
       "title": "ㅇㄹㅇㄹㅇ",
       "body": "ㅇㄹㅇ",
       "id": 3
+    },
+    {
+      "title": "ㅎㅇ",
+      "body": "ㅋㅋ",
+      "id": 4
+    },
+    {
+      "title": "ㅁㅎ",
+      "body": "ㅁㅎㅁㅎㅁㅎㅁㅎㅁㅎㅁ",
+      "id": 5
     }
   ],
-  "users": [
-    {
-      "id": 1,
-      "account": "abc1234",
-      "userName": "김철수"
-    },
-    {
-      "id": 2,
-      "account": "def456",
-      "userName": "박영희"
-    },
-    {
-      "id": 3,
-      "account": "ggg999",
-      "userName": "구구콘"
-    }
-  ]
+  "users": [],
+  "followers" : []
 }
