@@ -17,7 +17,6 @@ fetch(URL)
    todoList.forEach(({ id, text }) => {
       // 템플릿태그에서 li태그를 추출
       const $todoLi = document.importNode($listTemplate.content, true);
-      $todoLi.querySelector(".checkbox input").dataset.checkId = id;
       $todoLi.querySelector(".todo-list-item").dataset.id = id;
       $todoLi.querySelector(".text").textContent = text;
 
@@ -91,15 +90,31 @@ const listHandler = e =>{
         })
             
     }
+    const insertTodo = ()=>{
+        const $text = $todoUl.querySelector('.text');
+
+        console.log($text);
+        $text.innerHTML = `<span class="text">
+        <input type="text" id="todo-text" placeholder="할 일을 입력하세요" autocomplete="off">
+        <button id="add"><span class="lnr lnr-plus-circle"></span></button>
+        </span>
+        `;
+    }
     //타겟에 따라 발생할 함수
     if (e.target.closest(".remove")) deleteTodo();
     else if (e.target.closest(".checkbox input")) {
         checkTodo() ;
+    }else{
+        return insertTodo();
     }
+}
+const insertHandler = e => {
+    
 }
 
 // 삭제 이벤트 등록
 $todoUl.addEventListener("click", listHandler);
+
 
 
 
