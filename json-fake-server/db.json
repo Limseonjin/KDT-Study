@@ -11,19 +11,14 @@
       "body": "zzzzzzdsfwefzzz3333ㅈ"
     },
     {
-      "title": "ㅇㄹㅇㄹㅇ",
-      "body": "ㅇㄹㅇ",
-      "id": 3
-    },
-    {
-      "title": "ㅁㅎ",
-      "body": "ㅁㅎㅁㅎㅁㅎㅁㅎㅁㅎㅁ",
-      "id": 5
-    },
-    {
       "title": "ㅇㅇ",
       "body": "ㅇㅇ",
       "id": 6
+    },
+    {
+      "title": "fetch",
+      "body": "하하하하하하",
+      "id": 8
     }
   ],
   "users": [
@@ -36,5 +31,22 @@
       "userName": "김영희"
     }
   ],
-  "followers": []
+  "followers": [],
+  "todos" : [
+    {
+    "id" : 1,
+    "text" : "할 일 1",
+    "done" : false
+    },
+    {
+    "id" : 2,
+    "text" : "할 일 2",
+    "done" : false
+    },
+    {
+    "id" : 3,
+    "text" : "저녁냠냠스",
+    "done" : false
+    }
+]
 }
