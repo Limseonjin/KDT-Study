@@ -16,16 +16,25 @@
       "id": 3
     },
     {
-      "title": "ㅎㅇ",
-      "body": "ㅋㅋ",
-      "id": 4
-    },
-    {
       "title": "ㅁㅎ",
       "body": "ㅁㅎㅁㅎㅁㅎㅁㅎㅁㅎㅁ",
       "id": 5
+    },
+    {
+      "title": "ㅇㅇ",
+      "body": "ㅇㅇ",
+      "id": 6
     }
   ],
-  "users": [],
-  "followers" : []
+  "users": [
+    {
+      "id": 1,
+      "userName": "김철수"
+    },
+    {
+      "id": 2,
+      "userName": "김영희"
+    }
+  ],
+  "followers": []
 }
