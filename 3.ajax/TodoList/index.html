@@ -21,11 +21,11 @@
 </head>
 <body>
 
-    <template id="single-list">
-        <li class="todo-list-item">
+    <template id="single-todo">
+        <li data-id="" class="todo-list-item" >
             <label class="checkbox">
-                <input type="checkbox">
-                <span class="text">할 일 1</span>
+                <input type="checkbox" id>
+                <span class="text"></span>
             </label>
             <div class="modify">
                 <span class="lnr lnr-undo"></span>
@@ -44,8 +44,7 @@
                     <input type="text" id="todo-text" placeholder="할 일을 입력하세요" autocomplete="off">
                     <button id="add"><span class="lnr lnr-plus-circle"></span></button>
                 </form>
-                <ul class="todo-list">
-                </ul>
+                <ul class="todo-list"></ul>
             </div>
         </section>
     </div>
