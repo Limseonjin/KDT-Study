@@ -34,7 +34,7 @@
   "followers": [],
   "todos": [
     {
-      "text": "ㅎㅇ",
+      "text": "ㅐㅓㅎ?",
       "done": false,
       "id": 1
     },
@@ -42,6 +42,16 @@
       "text": "바보태용",
       "done": true,
       "id": 2
+    },
+    {
+      "text": "ㅋㅋ",
+      "done": false,
+      "id": 3
+    },
+    {
+      "text": "111919191",
+      "done": false,
+      "id": 5
     }
   ]
 }
