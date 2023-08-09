@@ -67,7 +67,24 @@ const addTodoHandler = e => {
 const $addBtn = document.getElementById('add');
 $addBtn.addEventListener('click', addTodoHandler);
 
+// step3. 할 일 삭제 기능
 
+const deleteTodoHandler = e=>{
+  if (!e.target.matches('.remove span')) return;
+
+  const id = e.target.closest('.todo-list-item').dataset.id;
+  
+  fetchTodos(`${URL}/${id}`, 'DELETE')
+  .then(res => {
+    if (res.status === 200 || res.status === 201) {
+      console.log('삭제 성공!');
+    } else {
+      console.log('삭제 실패!');
+    }
+  });
+}
+
+$todoList.addEventListener('click',deleteTodoHandler);
 // =========== 앱 실행 =========== //
 const init = () => {
   fetchTodos(URL)
