@@ -71,6 +71,8 @@ $addBtn.addEventListener('click', addTodoHandler);
 
 const deleteTodoHandler = e=>{
   if (!e.target.matches('.remove span')) return;
+  
+  if (!confirm('진짜로 삭제합니까??')) return;
 
   const id = e.target.closest('.todo-list-item').dataset.id;
   
@@ -83,8 +85,18 @@ const deleteTodoHandler = e=>{
     }
   });
 }
-
 $todoList.addEventListener('click',deleteTodoHandler);
+
+//step4. 할 일 완료 체크 처리 
+const checkTodoHandler = e =>{
+  const id = e.target.closest('.todo-list-item').dataset.id;
+
+  fetchTodos(`${URL}/${id}`, 'PATCH',{
+    done : e.target.checked
+  })
+}
+$todoList.addEventListener('change',checkTodoHandler);
+
 // =========== 앱 실행 =========== //
 const init = () => {
   fetchTodos(URL)
