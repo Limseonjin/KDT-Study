@@ -108,7 +108,7 @@ const insertTodoHandler = e=>{
 const changeInsertTodo = (target) => {
   const id = target.closest('.todo-list-item').dataset.id;
 
-    //input화 
+  //span input으로 바꾸기
   const $li = target.closest('li')
   const $text= $li.querySelector('.checkbox .text')
   
@@ -117,12 +117,10 @@ const changeInsertTodo = (target) => {
   $newInput.setAttribute('placeholder',$text.textContent);
   $newInput.classList.add('modify-input');
 
-  //버튼 바꾸기
-  target.classList.remove('lnr-undo')
-  target.classList.add('lnr-checkmark-circle');
-  console.log(target.classList);
-
   $text.parentNode.replaceChild($newInput, $text)
+  //버튼 바꾸기
+  target.classList.replace('lnr-undo','lnr-checkmark-circle');
+
   
   target.addEventListener('click',(e)=>{
     let newtext = $newInput.value
