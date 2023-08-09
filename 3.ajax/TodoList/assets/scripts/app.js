@@ -99,18 +99,28 @@ $todoList.addEventListener('change',checkTodoHandler);
 
 //step5. 할 일 수정하기 
 const insertTodoHandler = e=>{
-  if (!e.target.matches('.modify span')) return;
-
-  if (e.target.classList.contains('lnr-undo'))
+  if (e.target.matches('.modify span.lnr-undo')){
     changeInsertTodo(e.target);
+  }
+  else if (e.target.matches('.modify span.lnr-checkmark-circle')){
+    modifyTodo(e.target);  // 서버 수정 요청 보내기
+  }
+}
+const modifyTodo = ($checkMark) =>{
+  const $li= $checkMark.closest('.todo-list-item');
+  const id = $li.dataset.id;
+  const newtext = $li.querySelector('.modify-input').value;
+
+  fetchTodos(`${URL}/${id}`, 'PATCH',{
+    text : newtext
+  })
 }
 
 const changeInsertTodo = (target) => {
-  const id = target.closest('.todo-list-item').dataset.id;
+  
 
   //span input으로 바꾸기
-  const $li = target.closest('li')
-  const $text= $li.querySelector('.checkbox .text')
+  const $text= target.closest('.todo-list-item').querySelector('.text')
   
   const $newInput = document.createElement('input');
   $newInput.setAttribute('type','text');
@@ -120,18 +130,7 @@ const changeInsertTodo = (target) => {
   $text.parentNode.replaceChild($newInput, $text)
   //버튼 바꾸기
   target.classList.replace('lnr-undo','lnr-checkmark-circle');
-
   
-  target.addEventListener('click',(e)=>{
-    let newtext = $newInput.value
-    if (newtext === "")
-      newtext = $text.textContent;
-
-    fetchTodos(`${URL}/${id}`, 'PATCH',{
-      text : newtext
-    })
-    console.log($newInput.value);
-  })
 }
 
 $todoList.addEventListener('click',insertTodoHandler);

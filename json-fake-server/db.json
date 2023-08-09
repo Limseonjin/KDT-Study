@@ -34,8 +34,8 @@
   "followers": [],
   "todos": [
     {
-      "text": "ㅎㅇㅎㅇ",
-      "done": true,
+      "text": "ㅎㅇㅎㅇㅎㅇㅎ",
+      "done": false,
       "id": 1
     },
     {
@@ -44,7 +44,7 @@
       "done": true
     },
     {
-      "text": "666",
+      "text": "ㅇㅁㅁ",
       "done": false,
       "id": 3
     }
