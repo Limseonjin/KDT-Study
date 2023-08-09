@@ -1,6 +1,7 @@
 const URL = 'http://localhost:5000/todos';
 
 const $todoList = document.querySelector('.todo-list');
+const $todoInsert = document.querySelector('.todo-insert');
 
 // step1. db.json에 있는 todos를 화면에 렌더링하기
 const fetchTodos = (url, method='GET', payload=null) => {
@@ -17,7 +18,7 @@ const fetchTodos = (url, method='GET', payload=null) => {
 const renderTodos = (todoList) => {
   // li태그의 템플릿을 가져옴
   const $liTemplate = document.getElementById('single-todo');
-
+  let checkeditem = 0;
   todoList.forEach(({ id, text, done }) => {
     // console.log('todo: ', todo);
     const $newLi = document.importNode($liTemplate.content, true);
@@ -30,25 +31,29 @@ const renderTodos = (todoList) => {
     $checkbox.checked = done;
 
     done && $checkbox.parentNode.classList.add('checked');
+    done && checkeditem++;
 
     $todoList.appendChild($newLi);
   });
+  //step5. 헤더 텍스트 변경 (4/5개 완료됨)
+  if (todoList.length === 0) return;
+
+    const $title = document.querySelector('.app-title');
+    $title.textContent=`일정 관리 (${checkeditem}/${todoList.length}개 완료)`;
+  
 };
+
 
 // ========= 이벤트 관련 함수 ========= //
 const addTodoHandler = e => {
-  // 1. 클릭이벤트가 잘 일어나나?
-  // console.log('클릭!');
 
-  // 2. 클릭하면 일단 왼쪽에 인풋의 텍스트를 읽어야 함.
-  // 2-1. 인풋부터 찾자
   const $textInput = document.getElementById('todo-text');
-  // 2-2. 인풋 안에 텍스트를 꺼내자
-  const inputText = $textInput.value;
-
-  // 3. 그럼 서버에 이 데이터를 보내서 저장해야 하는데?
-  // -> fetch가 필요하겠다. 저장이니까 POST해야겠다.
-  // -> payload를 API 스펙에 맞게 만들어 보내야 함
+  const inputText = ($textInput.value).trim();
+  if (inputText === "") {
+    alert('입력값이 없습니다 다시 입력하세요 ');
+    $textInput.value = '';
+    return;
+  }
   const payload = {
     text: inputText,
     done: false
@@ -63,9 +68,14 @@ const addTodoHandler = e => {
     });
 };
 
-// step2. 할 일 등록 기능 
+// step2. 할 일 등록 기능 / 엔터로추가 +빈칸은 등록거절
 const $addBtn = document.getElementById('add');
 $addBtn.addEventListener('click', addTodoHandler);
+$todoInsert.addEventListener('keydown', e=>{
+  if (e.key === 'Enter'){
+    addTodoHandler(e);
+  }
+});
 
 // step3. 할 일 삭제 기능
 
@@ -134,6 +144,8 @@ const changeInsertTodo = (target) => {
 }
 
 $todoList.addEventListener('click',insertTodoHandler);
+
+
 // =========== 앱 실행 =========== //
 const init = () => {
   fetchTodos(URL)
