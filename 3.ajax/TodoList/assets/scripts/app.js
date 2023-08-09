@@ -97,6 +97,46 @@ const checkTodoHandler = e =>{
 }
 $todoList.addEventListener('change',checkTodoHandler);
 
+//step5. 할 일 수정하기 
+const insertTodoHandler = e=>{
+  if (!e.target.matches('.modify span')) return;
+
+  if (e.target.classList.contains('lnr-undo'))
+    changeInsertTodo(e.target);
+}
+
+const changeInsertTodo = (target) => {
+  const id = target.closest('.todo-list-item').dataset.id;
+
+    //input화 
+  const $li = target.closest('li')
+  const $text= $li.querySelector('.checkbox .text')
+  
+  const $newInput = document.createElement('input');
+  $newInput.setAttribute('type','text');
+  $newInput.setAttribute('placeholder',$text.textContent);
+  $newInput.classList.add('modify-input');
+
+  //버튼 바꾸기
+  target.classList.remove('lnr-undo')
+  target.classList.add('lnr-checkmark-circle');
+  console.log(target.classList);
+
+  $text.parentNode.replaceChild($newInput, $text)
+  
+  target.addEventListener('click',(e)=>{
+    let newtext = $newInput.value
+    if (newtext === "")
+      newtext = $text.textContent;
+
+    fetchTodos(`${URL}/${id}`, 'PATCH',{
+      text : newtext
+    })
+    console.log($newInput.value);
+  })
+}
+
+$todoList.addEventListener('click',insertTodoHandler);
 // =========== 앱 실행 =========== //
 const init = () => {
   fetchTodos(URL)
