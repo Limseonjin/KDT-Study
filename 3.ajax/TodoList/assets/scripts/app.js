@@ -14,11 +14,27 @@ const fetchTodos = (url, method='GET', payload=null) => {
   return fetch(url, requestInit);
 };
 
+const renderRestTodo = (todoList) =>{
+  //총 할 일 개수
+  const totalTodos = todoList.length;
+  //완료된 할 일의 개수 
+  const restTodos = todoList.filter(todo=>todo.done).length;
+  //렌더링
+  const $rest = document.querySelector('.rest-todo');
+  if (totalTodos === 0) return;
+
+   $rest.textContent=`(${restTodos}/${totalTodos}개 완료)`;
+  
+
+}
 // 화면에 todos를 렌더링하는 함수
 const renderTodos = (todoList) => {
+  //step5. 헤더 텍스트 변경 (4/5개 완료됨)
+  renderRestTodo(todoList);
+  
   // li태그의 템플릿을 가져옴
   const $liTemplate = document.getElementById('single-todo');
-  let checkeditem = 0;
+
   todoList.forEach(({ id, text, done }) => {
     // console.log('todo: ', todo);
     const $newLi = document.importNode($liTemplate.content, true);
@@ -31,15 +47,10 @@ const renderTodos = (todoList) => {
     $checkbox.checked = done;
 
     done && $checkbox.parentNode.classList.add('checked');
-    done && checkeditem++;
 
     $todoList.appendChild($newLi);
   });
-  //step5. 헤더 텍스트 변경 (4/5개 완료됨)
-  if (todoList.length === 0) return;
-
-    const $title = document.querySelector('.app-title');
-    $title.textContent=`일정 관리 (${checkeditem}/${todoList.length}개 완료)`;
+  
   
 };
 
@@ -49,7 +60,8 @@ const addTodoHandler = e => {
   const $textInput = document.getElementById('todo-text');
   const inputText = ($textInput.value).trim();
   if (inputText === "") {
-    alert('입력값이 없습니다 다시 입력하세요 ');
+    $textInput.style.background = 'orangered';
+    $textInput.setAttribute('placeholder','공백은 허용되지 않습니다!');
     $textInput.value = '';
     return;
   }
@@ -70,6 +82,9 @@ const addTodoHandler = e => {
 // step2. 할 일 등록 기능 / 엔터로추가 +빈칸은 등록거절
 const $addBtn = document.getElementById('add');
 $addBtn.addEventListener('click', addTodoHandler);
+$todoInsert.addEventListener('submit',e=>{
+  e.preventDefault();
+})
 $todoInsert.addEventListener('keydown', e=>{
   if (e.key === 'Enter'){
     addTodoHandler(e);
