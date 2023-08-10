@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">수정</button>
+    <pre>
+    </pre>
+    <script>
+        const fetchPost = () =>{
+            const id = 2
+            //서버에 수정 요청 (PUT, PATCH)
+            //PUT : 전체수정 / PATCH: 일부수정 
+            const xhr = new XMLHttpRequest();
+            xhr.open('PATCH',`http://localhost:5000/posts/${id}`);
+    
+            //서버로 보낼 데이터 아이디 필수 (payload)
+            const newPost = {
+                id:id,
+                // title : '수정수정 게시물',
+                body : 'zzzzzzdsfwefzzz3333ㅈ'
+            };
+            // payload를 보낼 떄는 js -> json으로 변환해서 보내야함 
+            const payload = JSON.stringify(newPost);
+
+            //보내는 데이터 뭔지 요청 헤더에 넣어야함 
+            xhr.setRequestHeader('content-type','application/json');
+            //요청송신:데이터 실어보냄
+            xhr.send(payload);
+        }
+
+        document.getElementById('btn').addEventListener('click',fetchPost)
+
+    </script>
+</body>
+</html>
