@@ -22,10 +22,14 @@ const App = () => {
       date: new Date(2023, 8 - 1, 11),
     },
   ];
-  console.log('App실행');
+  //ExpenseForm에게 내려보낼 함수
+  const onAddExpenseHandler = (NewExpense) => {
+    console.log('App컴포넌트에서 응답함니다');
+    console.log(NewExpense);
+  };
   return (
     <>
-      <NewExpense />
+      <NewExpense onAddExpense={onAddExpenseHandler} />
       <ExpenseList items={expense} />
     </>
   );
