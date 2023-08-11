@@ -21,10 +21,10 @@ const App = () => {
       date: new Date(2023, 8 - 1, 11),
     },
   ];
-
+  console.log('App실행');
   return (
     <>
-    <ExpenseList items={expense} />
+      <ExpenseList items={expense} />
     </>
   );
 };
