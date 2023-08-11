@@ -1,6 +1,7 @@
 import React from 'react';
-import ExpenseList from './components/ExpenseList';
+import ExpenseList from './components/Expenses/ExpenseList';
 import Hello from './Hello';
+import NewExpense from './components/NewExpense/NewExpense';
 
 const App = () => {
   //지출 항목에 대한 객체 배열
@@ -24,6 +25,7 @@ const App = () => {
   console.log('App실행');
   return (
     <>
+      <NewExpense />
       <ExpenseList items={expense} />
     </>
   );

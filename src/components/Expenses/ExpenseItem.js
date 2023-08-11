@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ExpenseItem.css';
 import ExpensDate from './ExpenseDate';
-import Card from './UI/Card';
+import Card from '../UI/Card';
 import { click } from '@testing-library/user-event/dist/click';
 
 const ExpenseItem = ({ title, price: prosPrice, date }) => {
