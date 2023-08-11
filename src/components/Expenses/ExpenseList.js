@@ -1,10 +1,16 @@
 import React from 'react';
 import ExpenseItem from './ExpenseItem';
 import './ExpenseList.css';
+import ExpenseFilter from './ExpenseFilter';
 
 const ExpenseList = ({ items: expense }) => {
+  const filterChangeHandler = (selectedYear) => {
+    console.log('select필터');
+    console.log(selectedYear);
+  };
   return (
     <div className="expenses">
+      <ExpenseFilter onChageFilter={filterChangeHandler} />
       <ExpenseItem
         title={expense[0].title}
         price={expense[0].price}
