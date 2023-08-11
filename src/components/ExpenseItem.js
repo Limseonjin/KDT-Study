@@ -1,6 +1,7 @@
 import React from 'react';
 import './ExpenseItem.css';
 import ExpensDate from './ExpenseDate';
+import Card from './UI/Card';
 
 const ExpenseItem = ({ title, price: prosPrice, date }) => {
   // const price = 999;
@@ -26,13 +27,15 @@ const ExpenseItem = ({ title, price: prosPrice, date }) => {
   //숫자를 원화 표기법으로 바꾸기
   const formattedPrice = new Intl.NumberFormat('ko-KR').format(prosPrice);
   return (
-    <div className="expense-item">
-      <ExpensDate date={date} />
-      <div className="expense-item__description">
-        <h2>{title}</h2>
-        <div className="expense-item__price">{formattedPrice}원</div>
+    <Card className='circle'>
+      <div className="expense-item">
+        <ExpensDate date={date} />
+        <div className="expense-item__description">
+          <h2>{title}</h2>
+          <div className="expense-item__price">{formattedPrice}원</div>
+        </div>
       </div>
-    </div>
+    </Card>
   );
 };
 
