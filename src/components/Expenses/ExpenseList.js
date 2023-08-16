@@ -16,26 +16,26 @@ const ExpenseList = ({ items }) => {
     setFilteredYear(selectedYear);
   };
 
-  // ExpenseItem을 동적 렌더링하기
-  // const iterateExpenseItem = () => {
-  //   return items.map((item) => (
-  //     <ExpenseItem
-  //       title={item.title}
-  //       price={item.price}
-  //       date={item.date}
-  //     />
-  //   ));
-  // };
+  const filteredItems = items.filter(
+    (item) => item.date.getFullYear().toString() === filteredYear
+  );
+
+  //조건부 렌더링을 위한 변수
+  let expenseContent = <p> 아직 등록된 지출이 없습니다. </p>;
+
+  if (filteredItems.length > 0) {
+    expenseContent = filteredItems.map(({ id, title, price, date }) => (
+      <ExpenseItem key={id} title={title} price={price} date={date} />
+    ));
+  }
 
   return (
     <Card className="expenses">
-      <ExpenseFilter onChangeFilter={filterChangeHandler} />
-
-      {items
-        .filter((item) => item.date.getFullYear().toString() === filteredYear)
-        .map(({ id, title, price, date }) => (
-          <ExpenseItem key={id} title={title} price={price} date={date} />
-        ))}
+      <ExpenseFilter
+        selected={filteredYear}
+        onChangeFilter={filterChangeHandler}
+      />
+      {expenseContent}
     </Card>
   );
 };
