@@ -6,6 +6,7 @@ import ExpenseFilter from './ExpenseFilter';
 import ExpensesChart from './ExpenseChart';
 
 const ExpenseList = ({ items }) => {
+  
   // 선택된 연도 상태값 관리
   const [filteredYear, setFilteredYear] = useState(
     new Date().getFullYear().toString()
@@ -36,7 +37,7 @@ const ExpenseList = ({ items }) => {
         selected={filteredYear}
         onChangeFilter={filterChangeHandler}
       />
-      <ExpensesChart expenses={items}/>
+      <ExpensesChart expenses={filteredItems} />
       {expenseContent}
     </Card>
   );
