@@ -7,11 +7,11 @@ const UserList = ({ users }) => {
   return (
     <Card className={styles.users}>
       <ul>
-        { users.map((user) => {
+        {users.map((user) => (
           <li key={user.id}>
             {user.username} ({user.age}세)
           </li>
-        })}
+        ))}
       </ul>
     </Card>
   );
