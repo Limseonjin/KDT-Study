@@ -20,10 +20,18 @@ const Login = ({ onLogin }) => {
   //formIsValid의 사이드 이펙트를 처리하는 영역
 
   useEffect(() => {
-    console.log('useEffect coll in login.js');
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
+    const timer = setTimeout(() => {
+      console.log('useEffect coll in login.js');
+      console.log(`useEffect: ${enteredEmail}`);
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    }, 1000);
+    //cleanup 함수 - 컴포넌트가 업데이트되거나 없어지기 전에 실행
+    return () => {
+      console.log('clean up~');
+      clearTimeout(timer);
+    };
   }, [enteredEmail, enteredPassword]); // 배열에 상태변수 넣어주면 그 상태변수 변할때마다 useEffect 재 실행
   const emailChangeHandler = (e) => {
     setEnteredEmail(e.target.value);
