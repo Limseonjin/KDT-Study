@@ -6,21 +6,16 @@ import CartContext from './cart-context';
 const defaultState = { items: [] };
 const cartReducer = (state, action) => {
   if (action.type === 'ADD') {
-
-    const updatedItems = [...state.items, action.items]
+    const updatedItems = [...state.items, action.items];
+    return {
+      item: updatedItems,
+    }; // 업데이트된 액션을 리턴
+  } else if (action.type === 'REMOVE') {
+    const removedItems = state.items.filter((item) => !item.id !== action.id);
 
     return {
-      item : updatedItems
-    }; // 업데이트된 액션을 리턴 
-
-  }else if (action.type === 'REMOVE'){
-
-    const removedItems = state.items.filter( item => !item.id !== action.id);
-
-    return {
-      item : removedItems
-    }; // 업데이트된 액션을 리턴 
-
+      item: removedItems,
+    }; // 업데이트된 액션을 리턴
   }
 
   return defaultState;
