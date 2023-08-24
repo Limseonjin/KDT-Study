@@ -4,7 +4,7 @@ import MealItemForm from './MealItemForm';
 import CartContext from '../../../../store/cart-context';
 
 const MealItem = ({ id, price, description, name }) => {
-  //컨텍스트에서 장바구니 추가함수를 받아옴
+  // 컨텍스트에서 장바구니 추가함수를 받아옴
   const { addItem } = useContext(CartContext);
 
   const addToCartHandler = (amount) => {
@@ -18,6 +18,7 @@ const MealItem = ({ id, price, description, name }) => {
   };
 
   const { meal, description: desc, price: priceStyle } = styles;
+
   const formatPrice = new Intl.NumberFormat('ko-KR').format(price);
 
   return (
@@ -28,7 +29,7 @@ const MealItem = ({ id, price, description, name }) => {
         <div className={priceStyle}>{formatPrice}원</div>
       </div>
       <div>
-        <MealItemForm onAddToCart={addToCartHandler} />
+        <MealItemForm id={id} onAddToCart={addToCartHandler} />
       </div>
     </li>
   );

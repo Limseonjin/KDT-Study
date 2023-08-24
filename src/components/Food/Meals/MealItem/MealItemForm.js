@@ -11,9 +11,10 @@ const MealItemForm = ({ id, onAddToCart }) => {
   };
 
   const amountHandler = (amt) => {
-    console.log(`선택된 수량: ${amt}`);
+    // console.log(`선택된 수량: ${amt}`);
     setAmount(amt);
   };
+
   return (
     <form className={styles.form} onSubmit={formSubmitHandler}>
       <Input
