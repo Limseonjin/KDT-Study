@@ -26,7 +26,7 @@ const cartReducer = (state, action) => {
       updatedItems = [...state.items, newCartItem];
     } else {
       //기존아이템은 수량만 1 올려주면됨
-      prevCartItem.amount++;
+      prevCartItem.amount += newCartItem.amount;
       updatedItems = [...existingItem]; //새롭게 복사배열 갱신
     }
 
