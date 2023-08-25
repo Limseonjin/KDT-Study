@@ -9,11 +9,26 @@ const defaultState = {
 // state: 업데이트 이전상태
 // action: 어떤 업데이트를 하는지에 대한 정보와 필요값들이 들어있음
 const cartReducer = (state, action) => {
+  //기존 장바구니에 등록된 ㄴ메뉴인지 아닌지에따라 다른처리를 해야함
   if (action.type === 'ADD') {
-    const updatedItems = [...state.items, action.item];
-    console.log(updatedItems);
+    const newCartItem = action.item;
+    const index = state.items.findIndex((item) => item.id === newCartItem.id);
+
+    const existingItem = [...state.items]; //기존 배열을 복사
+    const prevCartItem = existingItem[index];
+
     const updatePrice =
-      state.totalPrice + action.item.price * action.item.amount;
+      state.totalPrice + newCartItem.price * newCartItem.amount;
+
+    let updatedItems;
+    if (index === -1) {
+      //신규 아이템
+      updatedItems = [...state.items, newCartItem];
+    } else {
+      //기존아이템은 수량만 1 올려주면됨
+      prevCartItem.amount++;
+      updatedItems = [...existingItem]; //새롭게 복사배열 갱신
+    }
 
     return {
       items: updatedItems,
