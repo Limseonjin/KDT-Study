@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 80%;
+            margin: 50px auto 0;
+
+            display: flex;
+            justify-content: center;
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            background: tomato;
+            border: 4px dashed red;
+            border-radius: 15px;
+            font-size: 2em;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 2px 2px 20px #222;
+            margin-right: -30px;
+        }
+        .box:nth-child(even){
+            margin-top: 30px;
+        }
+        .box3{
+            position: relative;
+            z-index: 1;
+        }
+        .box4{
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+   <div class="container">
+    <div class="box box1">1</div>
+    <div class="box box2">2</div>
+    <div class="box box3">3</div>
+    <div class="box box4">4</div>
+    <div class="box box5">5</div>
+   </div>
+</body>
+</html>

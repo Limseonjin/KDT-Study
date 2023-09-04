@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 인접 형제 선택자 */
+        .org +li{
+            color :orangered
+        }
+        li+ li {
+            font-style: italic;
+            font-weight: 700;
+            list-style: none;
+        }
+
+        /* 일반 형제 선택자 */
+        .red ~ li {
+            background : tomato;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li class="org">어린쥐</li>
+        <li>애플</li>
+        <li>딸구</li>
+        <li class="org">오렌지</li>
+        <li class="red">자몽</li>
+        <li>레몬</li>
+        <li>포동</li>
+    </ul>
+</body>
+</html>

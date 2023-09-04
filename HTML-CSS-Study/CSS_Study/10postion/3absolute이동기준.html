@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .root{
+            width: 600px;
+            height: 500px;
+            border: 4px dashed orange;
+            padding: 100px;
+            font-size: 30px;
+            
+        }
+        .parent{
+            width: 400px;
+            height: 300px;
+            border: 4px dashed blue;
+            padding: 50px;
+            position: relative;
+        }
+        .child{
+            width: 120px;
+            height: 80px;
+            border: 4px dashed salmon;
+            background: lightgoldenrodyellow;
+            border-radius: 10px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .abs{
+            position: absolute;
+            top: 50px;
+            right: 30px;
+        }
+        .parent a{
+            color: blanchedalmond;
+            font-size: 40px;
+            background: darkred;
+            font-weight: 700;
+            text-decoration: none;
+            width: 50px; height: 50px;
+            display: block;
+            border-radius: 50%;
+            border: 3px solid orangered;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+            
+            position: absolute;
+            top: -20px;
+            right: -20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="root">
+        <div class="parent">
+            <div class="child abs">1</div>
+            <div class="child">2</div>
+            <div class="child">3</div>
+            <a href="#">X</a>
+        </div>
+    </div>
+</body>
+</html>
