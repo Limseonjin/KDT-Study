@@ -34,6 +34,7 @@ public class MethodQuiz1 {
         System.out.println("flag2 = " + flag2);
 
         insert(3, "파인애플"); // 3번 인덱스에 파인애플 삽입
+        printFoods();
         modify(2, "닭갈비");  // 2번 인덱스 데이터 닭갈비로 수정
 
         printFoods();
@@ -70,11 +71,11 @@ public class MethodQuiz1 {
 
     private static void insert(int i, String food) {
         String[] foodsCopy = copy(1);
-
-        for (int j= foodsCopy.length-1; j < i; j--) {
-            foodsCopy[j] = foodsCopy[j-1];
-        }
         foodsCopy[i] = food;
+        for (int j= foodsCopy.length-1; j > i; j--) {
+            foodsCopy[j] = foods[j-1];
+        }
+
         foods = foodsCopy;
     }
 
