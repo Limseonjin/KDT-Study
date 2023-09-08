@@ -20,6 +20,8 @@ public class MemberView {
         System.out.println("\n##### 회원 관리 시스템 #####");
         if (mr.memberList.length < 10){
             System.out.println("* 1. 회원 정보 등록하기");
+        }else{
+            System.out.println("# 정원 초과로 등록이 불가능합니다");
         }
         System.out.println("* 2. 개별회원 정보 조회하기");
         System.out.println("* 3. 전체회원 정보 조회하기");
@@ -42,8 +44,11 @@ public class MemberView {
 
             switch (menuNum) {
                 case "1":
-                    if (mr.memberList.length < 10)
-                        signUp();
+                    if (!(mr.memberList.length < 10)){
+                        System.out.println("\n# 메뉴 번호를 다시 입력하세요");
+                        break;
+                    }
+                    signUp();
                     break;
                 case "2":
                     showOneMember();
@@ -68,6 +73,10 @@ public class MemberView {
                     }
                     break;
                 case "7":
+                    if (mr.removeMembers.length < 1){
+                        System.out.println("\n# 메뉴 번호를 다시 입력하세요");
+                        break;
+                    }
                     restoreMember();
                     break;
                 default:
@@ -87,7 +96,7 @@ public class MemberView {
 
 
             //비번이 다르면 pass
-            if (mr.memberList.length > 10){
+            if (mr.memberList.length >= 10){
                 System.out.println("# 회원자가 10명이 넘어 복구를 할 수 없습니다.");
                 stop();
                 return;
@@ -181,6 +190,11 @@ public class MemberView {
 
     //회원가입 입출력을 처리하는 메서드
     private void signUp() {
+        if (mr.memberList.length >= 10){
+            System.out.println("가입된 회원이 10명 이상입니다. 회원가입이 불가능합니다.");
+            stop();
+            return;
+        }
         String email = checkDuplicateEmailInput();
         String name = input("# 이름: ");
         String pw = input("# 패스워드: ");

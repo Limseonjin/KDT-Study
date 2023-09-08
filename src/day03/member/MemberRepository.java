@@ -11,8 +11,14 @@ public class MemberRepository {
     public MemberRepository() {
         this.memberList = new Member[]{
                 new Member(1,"abc@def.com","1234","콩벌레",Gender.FEMALE,23),
-                new Member(2,"ddfs@def.com","1234","팥죽이",Gender.MALE,21),
+                new Member(2,"bbb@def.com","1234","팥죽이",Gender.MALE,21),
                 new Member(3,"ccc@def.com","1234","카레멘",Gender.MALE,20),
+                new Member(4,"eee@def.com","1234","카레멘",Gender.MALE,20),
+                new Member(5,"ddd@def.com","1234","카레멘",Gender.MALE,20),
+                new Member(6,"fff@def.com","1234","카레멘",Gender.MALE,20),
+                new Member(7,"ggg@def.com","1234","카레멘",Gender.MALE,20),
+                new Member(8,"qqq@def.com","1234","카레멘",Gender.MALE,20),
+                new Member(9,"vvv@def.com","1234","카레멘",Gender.MALE,20),
         };
         this.removeMembers = new Member[0];
     }
