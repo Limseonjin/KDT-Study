@@ -97,6 +97,18 @@ public class MemberRepository {
         Member member = findMemberByEmail(email,memberList);
         member.password = newPassword;
     }
+    void updateName(String newName, String email){
+        Member member = findMemberByEmail(email,memberList);
+        member.memberName = newName;
+    }
+    void updateEmail(String newEmail, String email){
+        Member member = findMemberByEmail(email,memberList);
+        member.email = newEmail;
+    }
+    void updateAge(String newAge, String email){
+        Member member = findMemberByEmail(email,memberList);
+        member.age = Integer.parseInt(newAge);
+    }
 
     /*
     * 회원 탈퇴를 처리하는 메서드

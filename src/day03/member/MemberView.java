@@ -33,6 +33,15 @@ public class MemberView {
         }
         System.out.println("=============================");
     }
+    void changeInfoView(){
+        System.out.println("# 수정할 정보를 선택하세요");
+        System.out.println("* 1. 패스워드");
+        System.out.println("* 2. 이름");
+        System.out.println("* 3. 이메일");
+        System.out.println("* 4. 나이");
+        System.out.println("* 5. 모든 정보 한번에 수정");
+        System.out.println("* 6. 메인 메뉴로 돌아가기");
+    }
 
     /**
      * 프로그램 화면 흐름을 제어하는 기능
@@ -58,7 +67,7 @@ public class MemberView {
                     stop();
                     break;
                 case "4":
-                    changePassword();
+                    changeinfo();
                     break;
                 case "5":
                     deleteMember();
@@ -85,29 +94,45 @@ public class MemberView {
         }
     }
 
-    private void restoreMember() {
-        //email 입력받음
-        String email = input("# 복구할 대상의 이메일: ");
-        //email 탐색
-        Member member = mr.findMemberByEmail(email,mr.removeMembers);
+    private void changeinfo() {
+        while (true){
 
-        if (member != null){
-            if (isPasswordinput(member)) return;
+            changeInfoView();
 
+            String menuNum = input(">> ");
 
-            //비번이 다르면 pass
-            if (mr.memberList.length >= 10){
-                System.out.println("# 회원자가 10명이 넘어 복구를 할 수 없습니다.");
-                stop();
-                return;
+            switch (menuNum) {
+                case "1":
+                    changePassword();
+                    break;
+                case "2":
+                    changeName();
+                    break;
+                case "3":
+                    changeEmail();
+                    break;
+                case "4":
+                    changeAge();
+                    break;
+                case "5":
+                    changeAll();
+                    break;
+                case "6":
+                    String answer = input("# 정말로 종료합니까? [y/n] : ");
+                    if (answer.toLowerCase().charAt(0) == 'y') {
+                        System.out.println("# 메인메뉴로 돌아갑니다.");
+                        stop();
+                    }else {
+                        continue;
+                    }
+                    return;
+                default:
+                    System.out.println("\n# 메뉴 번호를 다시 입력하세요");
             }
-            mr.recoverMember(member);
-            System.out.println("# 회원 복구가 완료되었습니다.");
-        }else {
-            System.out.printf("\n# 해당 회원이 없습니다.");
         }
-        stop();
+
     }
+
 
     /*
     * 패스워드를 3번 이상 잘못 입력시 true를 반환하는 메서드
@@ -183,6 +208,137 @@ public class MemberView {
 
         }else {
             System.out.printf("\n# 조회결과가 없습니다.");
+        }
+        stop();
+    }
+    private void changeName() {
+        //email 입력받음
+        String email = input("# 수정 대상의 이메일: ");
+
+        //수정 대상 탐색
+        Member member = mr.findMemberByEmail(email,mr.memberList);
+
+        //회원이 탐색됨
+        if (member != null){
+            System.out.printf("# %s님의 이름를 변경합니다.\n",member.memberName);
+            String newName = input("# 새로운 이름 : ");
+
+            //새로운 이름이 기존이름과 같은경우 pass
+            if(member.memberName.equals(newName)){
+                System.out.println("# 기존 이름과 동일합니다. 변경을 취소합니다.");
+                stop();
+                return;
+            }
+            mr.updateName(newName, email);
+            System.out.println("# 이름 변경이 완료되었습니다.");
+
+        }else {
+            System.out.printf("\n# 조회결과가 없습니다.");
+        }
+        stop();
+    }
+
+    private void changeAge() {
+        //email 입력받음
+        String email = input("# 수정 대상의 이메일: ");
+
+        //수정 대상 탐색
+        Member member = mr.findMemberByEmail(email,mr.memberList);
+
+        //회원이 탐색됨
+        if (member != null){
+            System.out.printf("# %s님의 나이를 변경합니다.\n",member.memberName);
+            String newAge = input("# 새로운 나이 : ");
+
+            //새 비번이 기존비번과 같은경우 pass
+            if(member.password.equals(newAge)){
+                System.out.println("# 기존 나이와 동일합니다. 변경을 취소합니다.");
+                stop();
+                return;
+            }
+            mr.updatePassword(newAge, email);
+            System.out.println("# 나이 변경이 완료되었습니다.");
+
+        }else {
+            System.out.printf("\n# 조회결과가 없습니다.");
+        }
+        stop();
+    }
+
+    private void changeEmail() {
+        //email 입력받음
+        String email = input("# 수정 대상의 이메일: ");
+
+        //수정 대상 탐색
+        Member member = mr.findMemberByEmail(email,mr.memberList);
+
+        //회원이 탐색됨
+        if (member != null){
+            System.out.printf("# %s님의 이메일을 변경합니다.\n",member.memberName);
+            String newEmail = input("# 새로운 이메일 : ");
+
+            //새 비번이 기존비번과 같은경우 pass
+            if(member.password.equals(newEmail)){
+                System.out.println("# 기존 이메일과 동일합니다. 변경을 취소합니다.");
+                stop();
+                return;
+            }
+            mr.updateEmail(newEmail, email);
+            System.out.println("# 이메일 변경이 완료되었습니다.");
+
+        }else {
+            System.out.printf("\n# 조회결과가 없습니다.");
+        }
+        stop();
+    }
+    private void changeAll() {
+        //email 입력받음
+        String email = input("# 수정 대상의 이메일: ");
+
+        //수정 대상 탐색
+        Member member = mr.findMemberByEmail(email,mr.memberList);
+
+        //회원이 탐색됨
+        if (member != null){
+            System.out.printf("# %s님의 회원정보를 변경합니다.\n",member.memberName);
+            String newPw = input("# 새로운 비밀번호 : ");
+            String newName = input("# 새로운 이름 : ");
+            String newEmail = input("# 새로운 이메일 : ");
+            String newAge = input("# 새로운 나이 : ");
+
+            mr.updatePassword(newPw, email);
+            mr.updateName(newName,email);
+            mr.updateAge(newAge,email);
+            mr.updateEmail(newEmail,email);
+
+            System.out.println("# 회원정보 변경이 완료되었습니다.");
+
+        }else {
+            System.out.printf("\n# 조회결과가 없습니다.");
+        }
+        stop();
+    }
+
+    private void restoreMember() {
+        //email 입력받음
+        String email = input("# 복구할 대상의 이메일: ");
+        //email 탐색
+        Member member = mr.findMemberByEmail(email,mr.removeMembers);
+
+        if (member != null){
+            if (isPasswordinput(member)) return;
+
+
+            //비번이 다르면 pass
+            if (mr.memberList.length >= 10){
+                System.out.println("# 회원자가 10명이 넘어 복구를 할 수 없습니다.");
+                stop();
+                return;
+            }
+            mr.recoverMember(member);
+            System.out.println("# 회원 복구가 완료되었습니다.");
+        }else {
+            System.out.printf("\n# 해당 회원이 없습니다.");
         }
         stop();
     }
