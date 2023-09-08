@@ -81,14 +81,11 @@ public class MemberView {
         Member member = mr.findMemberByEmail(email,mr.removeMembers);
 
         if (member != null){
-            String newPw = input("# 비밀번호 : ");
+            if (isPasswordinput(member)) return;
+
 
             //비번이 다르면 pass
-            if(!member.password.equals(newPw)){
-                System.out.println("# 비밀번호를 틀렸습니다. 복구를 취소합니다.");
-                stop();
-                return;
-            } else if (mr.memberList.length > 10){
+            if (mr.memberList.length > 10){
                 System.out.println("# 회원자가 10명이 넘어 복구를 할 수 없습니다.");
                 stop();
                 return;
@@ -101,6 +98,25 @@ public class MemberView {
         stop();
     }
 
+    /*
+    * 패스워드를 3번 이상 잘못 입력시 true를 반환하는 메서드
+    * */
+    private boolean isPasswordinput(Member member) {
+        for (int i = 0; i < 3; i++) {
+            String newPw = input("# 비밀번호 : ");
+            if(member.password.equals(newPw)){
+                break;
+            }
+            if (i == 2){
+                System.out.println("# 비밀번호를 3회이상 틀렸습니다. 해당 시스템을 종료합니다.");
+                stop();
+                return true;
+            }
+            System.out.println("# 비밀번호를 틀렸습니다. 다시 입력하세요.");
+        }
+        return false;
+    }
+
     private void deleteMember() {
         //email 입력받음
         String email = input("# 삭제 대상의 이메일: ");
@@ -108,14 +124,8 @@ public class MemberView {
         Member member = mr.findMemberByEmail(email, mr.memberList);
 
         if (member != null){
-            String newPw = input("# 비밀번호 : ");
+            if (isPasswordinput(member)) return;
 
-            //비번이 다르면 pass
-            if(!member.password.equals(newPw)){
-                System.out.println("# 비밀번호를 틀렸습니다. 변경을 취소합니다.");
-                stop();
-                return;
-            }
             mr.removeMember(member);
             System.out.println("# 회원 탈퇴가 완료되었습니다.");
         }else {
