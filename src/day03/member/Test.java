@@ -5,7 +5,21 @@ public class Test {
         MemberRepository mr = new MemberRepository();
         Member thief = new Member(4, "ttt@gam.com", "9999", "밥도둑", Gender.MALE, 12);
 
-        mr.addMember(thief);
+        mr.addMember(thief, mr.memberList);
+        mr.showMembers();
+
+        System.out.println("=========");
+        String email = "ttt@gam.com";
+//        boolean flag1 = mr.isDuplicatedEmail(email);
+//        System.out.println("flag1 = " + flag1);
+//
+//        Member foundMember = mr.findMemberByEmail(email);
+//        System.out.println("foundMember.inform() = " + foundMember.inform());
+
+        mr.removeMember(thief);
+        mr.showMembers();
+
+        mr.recoverMember(thief);
         mr.showMembers();
     }
 }
