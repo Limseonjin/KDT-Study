@@ -14,9 +14,7 @@ public class MemberRepository {
                 new Member(2,"ddfs@def.com","1234","팥죽이",Gender.MALE,21),
                 new Member(3,"ccc@def.com","1234","카레멘",Gender.MALE,20),
         };
-        this.removeMembers = new Member[]{
-                new Member(4,"eee@def.com","1234","칰항",Gender.MALE,20),
-        };
+        this.removeMembers = new Member[0];
     }
      /*
      * 모든 회원 정보를 출력하는 메서드

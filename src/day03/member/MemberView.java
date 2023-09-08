@@ -26,7 +26,9 @@ public class MemberView {
         System.out.println("* 4. 회원 정보 수정하기");
         System.out.println("* 5. 회원 정보 삭제하기");
         System.out.println("* 6. 프로그램 끝내기");
-        System.out.println("* 7. 회원 복구하기");
+        if (mr.removeMembers.length > 0){
+            System.out.println("* 7. 회원 복구하기");
+        }
         System.out.println("=============================");
     }
 
@@ -148,6 +150,7 @@ public class MemberView {
         stop();
     }
 
+    //패스워드를 수정하는 메소드
     private void changePassword() {
         //email 입력받음
         String email = input("# 수정 대상의 이메일: ");
