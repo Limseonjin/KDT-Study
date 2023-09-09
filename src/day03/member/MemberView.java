@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 //역할 : 회원관리 앱의 입출력을 담당
 public class MemberView {
+
+    //상수 만들기
+    public static final int MAX_REGISTER = 10;
     Scanner sc;
     MemberRepository mr;
 
@@ -18,7 +21,7 @@ public class MemberView {
      */
     void mainView() {
         System.out.println("\n##### 회원 관리 시스템 #####");
-        if (mr.memberList.length < 10){
+        if (mr.showMemberListSize(mr.memberList) < MAX_REGISTER){
             System.out.println("* 1. 회원 정보 등록하기");
         }else{
             System.out.println("# 정원 초과로 등록이 불가능합니다");
@@ -28,7 +31,7 @@ public class MemberView {
         System.out.println("* 4. 회원 정보 수정하기");
         System.out.println("* 5. 회원 정보 삭제하기");
         System.out.println("* 6. 프로그램 끝내기");
-        if (mr.removeMembers.length > 0){
+        if (mr.showMemberListSize(mr.removeMembers) > 0){
             System.out.println("* 7. 회원 복구하기");
         }
         System.out.println("=============================");
@@ -53,7 +56,7 @@ public class MemberView {
 
             switch (menuNum) {
                 case "1":
-                    if (!(mr.memberList.length < 10)){
+                    if (!(mr.showMemberListSize(mr.memberList) < MAX_REGISTER)){
                         System.out.println("\n# 메뉴 번호를 다시 입력하세요");
                         break;
                     }
@@ -134,50 +137,18 @@ public class MemberView {
     }
 
 
-    /*
-    * 패스워드를 3번 이상 잘못 입력시 true를 반환하는 메서드
-    * */
-    private boolean isPasswordinput(Member member) {
-        for (int i = 0; i < 3; i++) {
-            String newPw = input("# 비밀번호 : ");
-            if(member.password.equals(newPw)){
-                break;
-            }
-            if (i == 2){
-                System.out.println("# 비밀번호를 3회이상 틀렸습니다. 해당 시스템을 종료합니다.");
-                stop();
-                return true;
-            }
-            System.out.println("# 비밀번호를 틀렸습니다. 다시 입력하세요.");
-        }
-        return false;
-    }
 
-    private void deleteMember() {
-        //email 입력받음
-        String email = input("# 삭제 대상의 이메일: ");
-        //email 탐색
-        Member member = mr.findMemberByEmail(email, mr.memberList);
 
-        if (member != null){
-            if (isPasswordinput(member)) return;
 
-            mr.removeMember(member);
-            System.out.println("# 회원 탈퇴가 완료되었습니다.");
-        }else {
-            System.out.printf("\n# 해당 회원이 없습니다.");
-        }
-        stop();
-    }
 
     private void showOneMember() {
         //email 입력받음
         String email = input("# 조회 대상의 이메일: ");
         //email 탐색
-        Member member = mr.findMemberByEmail(email, mr.memberList);
+        Member member = mr.findMemberByEmail(email, false);
 
         if (member != null){
-            mr.showMember(member);
+            member.showDetailInfo();
         }else {
             System.out.printf("\n# 조회결과가 없습니다.");
         }
@@ -190,7 +161,7 @@ public class MemberView {
         String email = input("# 수정 대상의 이메일: ");
 
         //수정 대상 탐색
-        Member member = mr.findMemberByEmail(email,mr.memberList);
+        Member member = mr.findMemberByEmail(email,false);
 
         //회원이 탐색됨
         if (member != null){
@@ -216,7 +187,7 @@ public class MemberView {
         String email = input("# 수정 대상의 이메일: ");
 
         //수정 대상 탐색
-        Member member = mr.findMemberByEmail(email,mr.memberList);
+        Member member = mr.findMemberByEmail(email,false);
 
         //회원이 탐색됨
         if (member != null){
@@ -243,7 +214,7 @@ public class MemberView {
         String email = input("# 수정 대상의 이메일: ");
 
         //수정 대상 탐색
-        Member member = mr.findMemberByEmail(email,mr.memberList);
+        Member member = mr.findMemberByEmail(email,false);
 
         //회원이 탐색됨
         if (member != null){
@@ -270,7 +241,7 @@ public class MemberView {
         String email = input("# 수정 대상의 이메일: ");
 
         //수정 대상 탐색
-        Member member = mr.findMemberByEmail(email,mr.memberList);
+        Member member = mr.findMemberByEmail(email,false);
 
         //회원이 탐색됨
         if (member != null){
@@ -296,7 +267,7 @@ public class MemberView {
         String email = input("# 수정 대상의 이메일: ");
 
         //수정 대상 탐색
-        Member member = mr.findMemberByEmail(email,mr.memberList);
+        Member member = mr.findMemberByEmail(email,false);
 
         //회원이 탐색됨
         if (member != null){
@@ -318,16 +289,48 @@ public class MemberView {
         }
         stop();
     }
+    /*
+     * 패스워드를 3번 이상 잘못 입력시 true를 반환하는 메서드
+     * */
+    private boolean isPasswordinput(Member member) {
+        for (int i = 0; i < 3; i++) {
+            String newPw = input("# 비밀번호 : ");
+            if (mr.isMatchPassword(newPw,member.password)) break;
+            if (i == 2){
+                System.out.println("# 비밀번호를 3회이상 틀렸습니다. 해당 시스템을 종료합니다.");
+                stop();
+                return true;
+            }
+            System.out.println("# 비밀번호를 틀렸습니다. 다시 입력하세요.");
+        }
+        return false;
+    }
+    //회원 탈퇴를 하는 메서드
+    private void deleteMember() {
+        //email 입력받음
+        String email = input("# 삭제 대상의 이메일: ");
+        //email 탐색
+        Member member = mr.findMemberByEmail(email, false);
+
+        if (member != null){
+            if (isPasswordinput(member)) return;
+
+            mr.removeMember(member);
+            System.out.println("# 회원 탈퇴가 완료되었습니다.");
+        }else {
+            System.out.printf("\n# 해당 회원이 없습니다.");
+        }
+        stop();
+    }
 
     private void restoreMember() {
         //email 입력받음
         String email = input("# 복구할 대상의 이메일: ");
         //email 탐색
-        Member member = mr.findMemberByEmail(email,mr.removeMembers);
+        Member member = mr.findMemberByEmail(email,true);
 
         if (member != null){
             if (isPasswordinput(member)) return;
-
 
             //비번이 다르면 pass
             if (mr.memberList.length >= 10){
@@ -362,7 +365,7 @@ public class MemberView {
         int randomId = (int)(Math.random()*999999)+1;
 
         Member newMember = new Member(randomId,email,pw,name,gender,Integer.parseInt(age));
-        mr.addMember(newMember, mr.memberList);
+        mr.addMember(newMember, true);
 
         System.out.println("# 회원가입 성공!!");
         stop();

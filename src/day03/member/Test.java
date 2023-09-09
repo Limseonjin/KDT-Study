@@ -5,7 +5,7 @@ public class Test {
         MemberRepository mr = new MemberRepository();
         Member thief = new Member(4, "ttt@gam.com", "9999", "밥도둑", Gender.MALE, 12);
 
-        mr.addMember(thief, mr.memberList);
+        mr.addMember(thief, true);
         mr.showMembers();
 
         System.out.println("=========");
@@ -17,9 +17,7 @@ public class Test {
 //        System.out.println("foundMember.inform() = " + foundMember.inform());
 
         mr.removeMember(thief);
-        mr.showMembers();
 
-        mr.recoverMember(thief);
-        mr.showMembers();
+        mr.printRemoveMembers();
     }
 }
