@@ -39,20 +39,7 @@ public class LibraryRepository {
         System.out.println("");
     }
 
-
-    //모든 도서책 출력
-    void showBook(){
-        for (Book book : bookList) {
-            if (book instanceof CookBook){
-                CookBook cookBook = (CookBook) book;
-                System.out.println(cookBook.info());
-            } else if (book instanceof CartoonBook) {
-                CartoonBook cartoonBook = (CartoonBook)book;
-                System.out.println(cartoonBook.info());
-            }
-        }
-    }
-    void showBook(Book book){
+    void bookTypeAndInfo(Book book){
         if (book instanceof CookBook){
             CookBook cookBook = (CookBook) book;
             System.out.println(cookBook.info());
@@ -60,6 +47,16 @@ public class LibraryRepository {
             CartoonBook cartoonBook = (CartoonBook)book;
             System.out.println(cartoonBook.info());
         }
+    }
+
+    //모든 도서책 출력
+    void showBook(){
+        for (Book book : bookList) {
+           bookTypeAndInfo(book);
+        }
+    }
+    void showBook(Book book){
+        bookTypeAndInfo(book);
     }
 
     //책 제목으로 검색하기
@@ -83,13 +80,7 @@ public class LibraryRepository {
         int i = 1;
         for (Book book : bookList) {
             System.out.printf("%d. ",i);
-            if (book instanceof CookBook){
-                CookBook cookBook = (CookBook) book;
-                System.out.println(cookBook.info());
-            } else if (book instanceof CartoonBook) {
-                CartoonBook cartoonBook = (CartoonBook)book;
-                System.out.println(cartoonBook.info());
-            }
+            bookTypeAndInfo(book);
             i++;
         }
     }
