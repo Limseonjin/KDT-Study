@@ -27,6 +27,7 @@ public class Main {
         System.out.println("c2.x = " + c2.x);
         System.out.println("c2.x = " + c2.y);
 
+
 //        c1.m1();
 //        c2.m1(); static은 객체형태로 접근X
 //        Count.m2(); static 아니라서 XX
