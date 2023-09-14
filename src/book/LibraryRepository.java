@@ -2,6 +2,8 @@ package book;
 
 import day03.member.Gender;
 
+import java.util.Arrays;
+
 public class LibraryRepository {
     //데이터 관리 클래스
 
@@ -43,7 +45,6 @@ public class LibraryRepository {
 
     //모든 도서책 출력
     void showBook(){
-        System.out.println("========= 모든 도서 정보 ==========");
         for (Book book : bookList) {
             if (book instanceof CookBook){
                 CookBook cookBook = (CookBook) book;
@@ -54,14 +55,65 @@ public class LibraryRepository {
             }
         }
     }
+    void showBook(Book book){
+        if (book instanceof CookBook){
+            CookBook cookBook = (CookBook) book;
+            System.out.println(cookBook.info());
+        } else if (book instanceof CartoonBook) {
+            CartoonBook cartoonBook = (CartoonBook)book;
+            System.out.println(cartoonBook.info());
+        }
+    }
 
     //책 제목으로 검색하기
     void searchTitle(String search){
         for (Book book : bookList) {
             if (!book.getTitle().contains(search))
                 continue;
-            System.out.println(book.info());
+            showBook(book);
+        }
+    } //책 저자로 검색하기
+    void searchAuthor(String search){
+        for (Book book : bookList) {
+            if (!book.getAuthor().contains(search))
+                continue;
+            showBook(book);
         }
     }
+
+    //대여 가능한 도서정보 출력
+    void showPublisherBook(){
+        int i = 1;
+        for (Book book : bookList) {
+            System.out.printf("%d. ",i);
+            if (book instanceof CookBook){
+                CookBook cookBook = (CookBook) book;
+                System.out.println(cookBook.info());
+            } else if (book instanceof CartoonBook) {
+                CartoonBook cartoonBook = (CartoonBook)book;
+                System.out.println(cartoonBook.info());
+            }
+            i++;
+        }
+    }
+
+    RentStatus isrentBook(int i){
+        Book book = bookList[i-1];
+
+        if (book instanceof CookBook){
+            CookBook cookBook = (CookBook) book;
+            if (cookBook.isCoupon()){
+                bookUser.setCouponCount(bookUser.getCouponCount()+1);
+                return RentStatus.RENT_SUCCESS_WITH_COUPON;
+            }
+        } else if (book instanceof CartoonBook) {
+            CartoonBook cartoonBook = (CartoonBook)book;
+            if (cartoonBook.getAccessAge() > bookUser.getAge()){
+                return RentStatus.RENT_FAIL;
+            }
+        }
+        return RentStatus.RENT_SUCCESS;
+    }
+
 
 }

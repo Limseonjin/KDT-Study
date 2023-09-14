@@ -1,6 +1,7 @@
 package book;
 
 import day03.member.Gender;
+import day04.modi.pac1.B;
 
 public class BookUser {
 
@@ -18,6 +19,15 @@ public class BookUser {
         this.age = age;
         this.gender = gender;
         this.couponCount = couponCount;
+        this.rentBookList = new Book[0];
+    }
+
+    public Book[] getRentBookList() {
+        return rentBookList;
+    }
+
+    public void setRentBookList(Book[] rentBookList) {
+        this.rentBookList = rentBookList;
     }
 
     public String getName() {
