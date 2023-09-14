@@ -64,7 +64,7 @@ public class LibraryView {
         System.out.println("============ 대여 가능한 도서 정보 ==============");
         rp.showPublisherBook();
         int num = Integer.parseInt(input("- 대여할 도서 번호 입력: "));
-        RentStatus rs = rp.isrentBook(num);
+        RentStatus rs = rp.rentBook(num);
 
         if (rs == RentStatus.RENT_SUCCESS)
             System.out.println("# 도서가 성공적으로 대여되었습니다.");

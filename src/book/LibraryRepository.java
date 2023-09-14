@@ -26,11 +26,7 @@ public class LibraryRepository {
 
     //회원정보를 저장
     void inputUser(String name, int age, Gender gender,int coupon){
-        bookUser = new BookUser();
-        bookUser.setName(name);
-        bookUser.setAge(age);
-        bookUser.setGender(gender);
-        bookUser.setCouponCount(coupon);
+        bookUser = new BookUser(name,age,gender,coupon);
     }
     //회원 정보를 출력
     void showUser(){
@@ -39,6 +35,7 @@ public class LibraryRepository {
         System.out.println("# 나이: "+bookUser.getAge());
         System.out.println("# 성별: "+bookUser.getGenderToString());
         System.out.println("# 쿠폰개수: "+bookUser.getCouponCount());
+        System.out.println("# 대여책 개수: "+bookUser.getRentBookList().length);
         System.out.println("");
     }
 
@@ -97,13 +94,14 @@ public class LibraryRepository {
         }
     }
 
-    RentStatus isrentBook(int i){
+    //도서 대출 가능여부 출력
+    RentStatus rentBook(int i){
         Book book = bookList[i-1];
-
         if (book instanceof CookBook){
             CookBook cookBook = (CookBook) book;
             if (cookBook.isCoupon()){
                 bookUser.setCouponCount(bookUser.getCouponCount()+1);
+                addRentBook(book);
                 return RentStatus.RENT_SUCCESS_WITH_COUPON;
             }
         } else if (book instanceof CartoonBook) {
@@ -112,7 +110,15 @@ public class LibraryRepository {
                 return RentStatus.RENT_FAIL;
             }
         }
+        addRentBook(book);
         return RentStatus.RENT_SUCCESS;
+    }
+
+    void addRentBook(Book book){
+        int len = bookUser.getRentBookList().length;
+        Book[] temp = Arrays.copyOf(bookUser.getRentBookList(),len+1);
+        temp[temp.length-1] = book;
+        bookUser.setRentBookList(temp);
     }
 
 
