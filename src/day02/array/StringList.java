@@ -8,7 +8,7 @@ public class StringList {
     String[] sArr;
 
     //생성자를 통해 초기화
-    StringList(){
+    public StringList(){
         sArr = new String[0];
     }
     StringList(String... initData){
@@ -37,7 +37,7 @@ public class StringList {
         String[] temp = copy(-1);
         sArr = temp;
     }
-    void push(String item){
+    public void push(String item){
         String[] temp = copy(1);
         temp[temp.length-1] = item;
         sArr = temp;
@@ -84,4 +84,9 @@ public class StringList {
     void printArray(){
         System.out.println(Arrays.toString(sArr));
     }
+
+    public String[] getsArr() {
+        return sArr;
+    }
+
 }

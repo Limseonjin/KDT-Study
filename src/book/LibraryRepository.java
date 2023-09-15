@@ -1,15 +1,18 @@
 package book;
 
-import day03.member.Gender;
+import day02.array.StringList;
 
-import java.util.Arrays;
+import static book.RentStatus.*;
 
 public class LibraryRepository {
-    //데이터 관리 클래스
 
     // 회원 1명
     private static BookUser bookUser;
 
+
+    //static initializer : 정적 초기화자
+    // 인스턴스 필드는 생성자로 초기화
+    //static 필드는 정적 초기화자로 초기화
     // 도서들의 정보
     private static Book[] bookList;
 
@@ -24,93 +27,69 @@ public class LibraryRepository {
         };
     }
 
-    //회원정보를 저장
-    void inputUser(String name, int age, Gender gender,int coupon){
-        bookUser = new BookUser(name,age,gender,coupon);
-    }
-    //회원 정보를 출력
-    void showUser(){
-        System.out.println("******** 회원님 정보 ***********");
-        System.out.println("# 회원명: "+bookUser.getName());
-        System.out.println("# 나이: "+bookUser.getAge());
-        System.out.println("# 성별: "+bookUser.getGenderToString());
-        System.out.println("# 쿠폰개수: "+bookUser.getCouponCount());
-        System.out.println("# 대여책 개수: "+bookUser.getRentBookList().length);
-        System.out.println("");
+    // 유저를 등록하는 기능
+    public void register(BookUser userInfo) {
+        bookUser = userInfo;
     }
 
-    void bookTypeAndInfo(Book book){
-        if (book instanceof CookBook){
-            CookBook cookBook = (CookBook) book;
-            System.out.println(cookBook.info());
-        } else if (book instanceof CartoonBook) {
-            CartoonBook cartoonBook = (CartoonBook)book;
-            System.out.println(cartoonBook.info());
+    // 마이페이지 기능
+    /*
+        여기에 있는 bookUser 정보 리턴
+     */
+    BookUser findBookUser() {
+        return bookUser;
+    }
+
+    // 모든 책의 정보를 알려주는 메서드
+    public String[] getBookInfoList() {
+        String[] infoList = new String[bookList.length];
+        for (int i = 0; i < infoList.length; i++) {
+            infoList[i] = bookList[i].info();
         }
+        return infoList;
     }
 
-    //모든 도서책 출력
-    void showBook(){
+    // 검색어를 받으면 해당 검색어를 포함하는 제목을 가진
+    // 책 정보들을 반환
+    public String[] searchBookInfoList(String keyword) {
+        StringList list = new StringList();
+        // bookList를 뒤져야 됨.
         for (Book book : bookList) {
-           bookTypeAndInfo(book);
+            String title = book.getTitle(); // 책 제목
+            if (title.contains(keyword)) {
+                // 검색어에 걸린 책의 정보문자열
+                String info = book.info();
+                list.push(info);
+            }
         }
-    }
-    void showBook(Book book){
-        bookTypeAndInfo(book);
-    }
-
-    //책 제목으로 검색하기
-    void searchTitle(String search){
-        for (Book book : bookList) {
-            if (!book.getTitle().contains(search))
-                continue;
-            showBook(book);
-        }
-    } //책 저자로 검색하기
-    void searchAuthor(String search){
-        for (Book book : bookList) {
-            if (!book.getAuthor().contains(search))
-                continue;
-            showBook(book);
-        }
+        return list.getsArr();
     }
 
-    //대여 가능한 도서정보 출력
-    void showPublisherBook(){
-        int i = 1;
-        for (Book book : bookList) {
-            System.out.printf("%d. ",i);
-            bookTypeAndInfo(book);
-            i++;
-        }
-    }
+    // 도서 대여 처리
+    public RentStatus rentBook(int rentNum) {
+        // 대여를 원하는 책 추출
+        Book wishBook = bookList[rentNum - 1];
 
-    //도서 대출 가능여부 출력
-    RentStatus rentBook(int i){
-        Book book = bookList[i-1];
-        if (book instanceof CookBook){
-            CookBook cookBook = (CookBook) book;
-            if (cookBook.isCoupon()){
+        // 책의 분류에 따라 다른 처리
+        if (wishBook instanceof CookBook) {
+            CookBook cookBook = (CookBook) wishBook;
+            // 쿠폰 유무를 확인
+            if (cookBook.isCoupon()) {
                 bookUser.setCouponCount(bookUser.getCouponCount()+1);
-                addRentBook(book);
-                return RentStatus.RENT_SUCCESS_WITH_COUPON;
+                return RENT_SUCCESS_WITH_COUPON;
+            } else {
+                return RENT_SUCCESS;
             }
-        } else if (book instanceof CartoonBook) {
-            CartoonBook cartoonBook = (CartoonBook)book;
-            if (cartoonBook.getAccessAge() > bookUser.getAge()){
-                return RentStatus.RENT_FAIL;
+        } else if (wishBook instanceof CartoonBook) {
+            CartoonBook cartoonBook = (CartoonBook) wishBook;
+            // 연령제한을 확인
+            if (bookUser.getAge() >= cartoonBook.getAccessAge()) {
+                // 빌릴 수 있는 경우
+                return RENT_SUCCESS;
+            } else {
+                return RENT_FAIL;
             }
         }
-        addRentBook(book);
-        return RentStatus.RENT_SUCCESS;
+        return RENT_FAIL;
     }
-
-    void addRentBook(Book book){
-        int len = bookUser.getRentBookList().length;
-        Book[] temp = Arrays.copyOf(bookUser.getRentBookList(),len+1);
-        temp[temp.length-1] = book;
-        bookUser.setRentBookList(temp);
-    }
-
-
 }
