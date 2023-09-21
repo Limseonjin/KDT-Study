@@ -1,5 +1,6 @@
 package day08.collection.list;
 
+import day08.generic.Apple;
 import util.Utility;
 
 import java.util.*;
@@ -58,5 +59,30 @@ public class ListExample {
         System.out.println(list.isEmpty());
         list.clear();
         System.out.println(list.isEmpty());
+
+        //리스트에 초기값 넣고 시작하기
+        List<Integer> numbers = new ArrayList<>(
+                List.of(5,30,20,1,42)
+        );
+        System.out.println(numbers);
+
+        //오름차순 정렬
+        numbers.sort(Integer::compareTo);
+        System.out.println(numbers);
+        
+        //내림차순 정렬
+        numbers.sort(Comparator.reverseOrder());
+        System.out.println("numbers = " + numbers);
+
+        //배열리스트와 연결리스트
+        /*
+        *            탐색속도 삽입삭제속도
+        * 배열리스트     빠름      느림
+        * 연결리스트     느림      빠름
+        *
+        * */
+        //배열리스트
+        List<Apple> appleList = new LinkedList<>();
+        appleList.add(new Apple(18));
     }
 }
