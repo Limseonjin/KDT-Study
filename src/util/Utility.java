@@ -15,4 +15,7 @@ public class Utility {
         System.out.print(message);
         return sc.nextLine();
     }
+    public static void br(){
+        System.out.println("");
+    }
 }
