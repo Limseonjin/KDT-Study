@@ -14,7 +14,10 @@ public class ArtistView {
     }
 
     public static void start() {
-        selectMain();
+        while(true){
+            mainpage();
+            selectMain();
+        }
     }
     private static void mainpage(){
         System.out.println("***** 음악 관리 프로그램 ******");
@@ -25,30 +28,41 @@ public class ArtistView {
         makeLine();
     }
     private static void selectMain(){
-        while (true){
-            mainpage();
-            int menu = Integer.parseInt(input("선택: "));
+        int menu = Integer.parseInt(input("선택: "));
+        switch (menu){
+            case 1:
+                addSong();
+                break;
+            case 2:
+                serchSong();
+                break;
+            case 3:
+                br();
+                String answer = input("# 정말로 종료합니까? [y/n] : ");
+                if (answer.toLowerCase().charAt(0) == 'y') {
+                    System.out.println("# 프로그램을 종료합니다.");
+                    System.exit(0);
+                }
+                break;
+            default:
+                System.out.println("다시 입력 하세요");
+        }
+    }
 
-            switch (menu){
-                case 1:
-                    addSong();
-                    break;
-                case 2:
-                    serchSong();
-                    break;
-                case 3:
-                    br();
-                    String answer = input("# 정말로 종료합니까? [y/n] : ");
-                    if (answer.toLowerCase().charAt(0) == 'y') {
-                        System.out.println("# 프로그램을 종료합니다.");
-                        System.exit(0);
-                    } else {
-                        continue;
-                    }
-                    break;
-                default:
-                    System.out.println("다시 입력 하세요");
-            }
+    private static void addSong() {
+        System.out.println("# 노래 등록을 시작합니다.");
+        String singer = input("- 가수명: ");
+        String song = (input("- 노래명: "));
+        if (!ar.isArtist(singer)){
+            ar.addNewArtist(singer, song);
+            System.out.printf("# %s님이 신규 등록되었습니다.\n",singer);
+            br();
+        }else{
+            boolean flag = ar.addNewSong(singer,song);
+            if(flag)
+                System.out.println(singer+"님의 노래목록에 "+song+"곡이 추가되었습니다.");
+            else
+                System.out.printf("[%s]곡은 이미 등록된 노래입니다.",song);
         }
     }
 
@@ -62,14 +76,6 @@ public class ArtistView {
         System.out.printf("# %s님의 노래목록",singer);
         makeLine();
         ar.serchArtist(singer);
-        br();
-    }
-
-    private static void addSong() {
-        System.out.println("# 노래 등록을 시작합니다.");
-        String singer = input("- 가수명: ");
-        String song = (input("- 노래명: "));
-        ar.newArtist(singer, song);
         br();
     }
 }

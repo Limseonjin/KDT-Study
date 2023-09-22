@@ -15,31 +15,37 @@ public class ArtistRepository {
     }
 
     public boolean isArtist(String artist){
-        List<String> aList = new ArrayList<>(artistList.keySet());
+        return artistList.containsKey(artist);
+    }
+    // 신규 가수를 map에 추가하는 기능
+    public void addNewArtist(String artistName, String songName) {
 
-        return aList.contains(artist);
+        // 1. 신규가수 정보를 생성
+        Artist artist = new Artist(artistName, new HashSet<>());
+        // 2. 생성된 노래 목록에 전달받은 노래를 추가
+        artist.getSongList().add(songName);
+
+        // 3. 가수 정보를 Map에 저장
+        artistList.put(artistName, artist);
     }
 
-    public void newArtist(String singer, String song){
-        Set<String> newSong = new HashSet<>();
-        if (!isArtist(singer)){
-            newSong.add(song);
-            Artist newA = new Artist(singer,newSong);
-            artistList.put(singer,newA);
-            System.out.printf("# %s님이 신규 등록되었습니다.\n",singer);
+    /*
 
-        }else {
-           newSong = (artistList.get(singer).getSongList());
-           if(newSong.add(song)){
-               artistList.get(singer).setSongList(newSong);
-               System.out.println(singer+"님의 노래목록에 "+song+"곡이 추가되었습니다.");
-           }
-           else {
-               System.out.printf("[%s]곡은 이미 등록된 노래입니다.",song);
-           }
-
-        }
+    기존 가수 정보에 노래만 추가하는 기능
+    @param singer - 사용자 입력 가수이름
+    @param song - 사용자 입력 노래이름
+    @return - 곡명이 중복되면 false / 곡이 정상적으로 추가
+    * */
+    public boolean addNewSong(String singer, String song){
+        Artist artist = findArtistByName(singer);
+        boolean flag = artist.getSongList().add(song);
+        return flag;
     }
+
+    private static Artist findArtistByName(String singer) {
+        return artistList.get(singer);
+    }
+
 
     public void serchArtist(String singer) {
         ArrayList<String> songList = new ArrayList<>(artistList.get(singer).getSongList());
