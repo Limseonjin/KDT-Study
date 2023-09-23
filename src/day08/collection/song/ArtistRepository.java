@@ -1,5 +1,8 @@
 package day08.collection.song;
 
+import day10.io.rw.FilePath;
+
+import java.io.*;
 import java.util.*;
 
 public class ArtistRepository {
@@ -52,5 +55,30 @@ public class ArtistRepository {
         for (int i = 0; i < songList.size(); i++) {
             System.out.printf("* %d. %s\n",i+1,songList.get(i));
         }
+    }
+
+    public void autoSave(){
+        File f = new File(FilePath.path+"/music");
+        if (!f.exists()) f.mkdir();
+
+        try(FileOutputStream fos = new FileOutputStream(FilePath.path+"/music/song.sav")){
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(artistList); //artist가 직렬화 되어있는지 확인 (implements Serializable)
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void loadFile(){
+        //세이브 파일이 있는지 확인
+        File f = new File(FilePath.path+"/music/song.sav");
+        if (f.exists()){
+            try(FileInputStream fis = new FileInputStream(FilePath.path+"/music/song.sav")){
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                artistList = (Map<String, Artist>) ois.readObject();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
     }
 }

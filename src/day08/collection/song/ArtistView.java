@@ -14,6 +14,9 @@ public class ArtistView {
     }
 
     public static void start() {
+        //세이브 파일 로드
+        ar.loadFile();
+
         while(true){
             mainpage();
             selectMain();
@@ -64,6 +67,7 @@ public class ArtistView {
             else
                 System.out.printf("[%s]곡은 이미 등록된 노래입니다.",song);
         }
+        ar.autoSave();
     }
 
     private static void serchSong() {
