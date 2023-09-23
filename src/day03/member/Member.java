@@ -24,7 +24,7 @@ public class Member {
         this.regDate = LocalDate.now();
     }
 
-    String inform(){
+    public String inform(){
         String convertGender = this.gender == Gender.MALE? "남성" : "여성";
         return String.format("# %d번 | %s | %s | %s | %d세",
                 this.memberId, this.email, this.memberName, convertGender, this.age);
