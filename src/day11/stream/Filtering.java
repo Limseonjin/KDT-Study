@@ -22,42 +22,42 @@ public class Filtering {
 //
 //        dishInVegiterian.forEach(dish -> System.out.println(dish));
         menuList.stream().
-                filter(dish -> dish.isVegeterian())
+                filter(Dish::isVegeterian)
                 .collect(toList())
-                .forEach(dish -> System.out.println(dish));
+                .forEach(System.out::println);
 
         System.out.println("===== 육류이면서 600칼로리 미만 요리 필터링 ===");
         menuList.stream()
                 .filter(dish -> dish.getType() == MEAT && dish.getCalories() < 600)
                 .collect(toList())
-                .forEach(d -> System.out.println(d));
+                .forEach(System.out::println);
 
         System.out.println("=== 요리중에 요리이름이 4글자인 요리만 필터링 ===");
         menuList.stream()
                 .filter(dish -> dish.getName().length() == 4)
                 .collect(toList())
-                .forEach(d -> System.out.println(d));
+                .forEach(System.out::println);
 
         System.out.println("=== 요리에서 300 칼로리보다 큰 요리만 필터링 ==");
         menuList.stream()
                 .filter(dish -> dish.getCalories() > 300)
                 .limit(3)
                 .collect(toList())
-                .forEach(d -> System.out.println(d));
+                .forEach(System.out::println);
 
         System.out.println("===============");
         menuList.stream()
                 .filter(dish -> dish.getCalories() > 300)
                 .skip(2) //맨앞 두개 제외
                 .collect(toList())
-                .forEach(d -> System.out.println(d));
+                .forEach(System.out::println);
 
         System.out.println("=== 메뉴 목록에서 처음 등장하는 2개의 생선요리 필터링");
         menuList.stream()
                 .filter(dish -> dish.getType() == FISH)
                 .limit(2)
                 .collect(toList())
-                .forEach(d -> System.out.println(d));
+                .forEach(System.out::println);
         
         //짝수 걸러내기 
         List<Integer> numbers = List.of(1,2,1,3,3,2,4,4,5,6);

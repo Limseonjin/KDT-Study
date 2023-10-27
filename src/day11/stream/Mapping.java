@@ -50,16 +50,16 @@ public class Mapping {
         // stream의 map : 컬렉션(리스트, 셋, 맵..)에서 원하는 정보만 추출하여
         // 새로운 컬렉션으로 반환해줌
         List<String> nameList = menuList.stream()
-                .map(dish -> dish.getName())
+                .map(Dish::getName)
                 .collect(Collectors.toList());
         System.out.println("nameList = " + nameList);
 
         // 요리목록에서 메뉴 이름과 칼로리를 추출 -> 새로운 클래스 생성
 
         menuList.stream()
-                .map(dish -> new SimpleDish(dish))
+                .map(SimpleDish::new)
                 .collect(Collectors.toList())
-                .forEach(d -> System.out.println(d));
+                .forEach(System.out::println);
 
         /*
         *  메뉴 목록에서 칼로리가 500칼로리 보다 큰 음식들을 필터링하고
@@ -67,9 +67,9 @@ public class Mapping {
         * */
         menuList.stream()
                 .filter(dish -> dish.getCalories() > 500)
-                .map(d -> new BigCaloriesDish(d))
+                .map(BigCaloriesDish::new)
                 .collect(Collectors.toList())
-                .forEach(d -> System.out.println(d));
+                .forEach(System.out::println);
 
     }
 }
